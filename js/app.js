@@ -5,21 +5,38 @@
  */
 
 /**
- * The size of the array cardSymbols does not really matter, as long as its length equals at least
- * half the of the board size
+ * The size of the array cardFigures does not really matter, as long as its length equals at least
+ * half the of the board size.
+ *
+ * If there are not enough figures, the board constructor will throw an error
  */
-const cardSymbols = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
+const cardFigures = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
                      "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-
 const boardSize = 16;
+const docBoard = document.getElementsByClassName("board")[0];
 
 /**
  * Creates a new Card
  * @class
  */
-let Card = function(cardSymbol){
-	this.cardSymbol = cardSymbol;
+let Card = function(id, figure){
+	this.id = id;
+	this.figure = figure;
+	this.flipped = false;
+	this.solved = false;
+	this.inCurrentRound = false;
 };
+
+Card.prototype.flip = function () {
+
+	let docCard = document.getElementById(`card${this.id}`);
+
+	if (this.solved===false && this.solved===false){
+		docCard.className += " open show";
+		this.flipped = true;
+		this.inCurrentRound = true;
+	}
+}
 
 /**
  * Creates a new Board
@@ -27,13 +44,19 @@ let Card = function(cardSymbol){
  */
 let Board = function(boardSize){
 
-	if (boardSize / 2 > cardSymbols.length) throw `There are not enough symbols for a board of size ${boardSize}.`;
+	if (boardSize / 2 > cardFigures.length) throw `There are not enough figures for a board of size ${boardSize}.`;
 
 	this.boardSize = boardSize;
-	this.cards = new Array();
+	this.moves = 0;
 
+	/**
+	 * Adding array of cards
+	 *
+	 */
+
+	this.cards = new Array();
 	for (i=0;i<=(boardSize)-1;i++){
-		this.cards[i] = new Card(cardSymbols[Math.floor(i/2)]);
+		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
 	}
 };
 
@@ -52,11 +75,9 @@ Board.prototype.shuffleCards = function () {
 
 Board.prototype.showCards = function () {
 
-	let docBoard = document.getElementsByClassName("board");
-
 	this.cards.forEach(card => {
-		let cardHTML = `<li class="card"><i class="fa ${card.cardSymbol} fa-2x"></i></li>`;
-		docBoard[0].innerHTML += cardHTML;
+		let cardHTML = `<li id="card${card.id}" class="card"><i class="fa ${card.figure} fa-2x"></i></li>`;
+		docBoard.innerHTML += cardHTML;
 	});
 }
 
@@ -67,17 +88,27 @@ Board.prototype.showCards = function () {
  */
 
  window.onload=function(){
+
 	pairOdromBoard = new Board(boardSize);
 	pairOdromBoard.shuffleCards();
 	pairOdromBoard.showCards();
+
+	docBoard.addEventListener('click', function(){
+		if (event.target.tagName==="LI"){
+			let pairOdromcard = pairOdromBoard.cards.find(card => "card"+card.id === event.target.id);
+
+			pairOdromcard.flip();
+			console.log(pairOdromcard);
+		}
+	});
+
 }
 
 /*
  TODO
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
+ * In Card listeners:
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
