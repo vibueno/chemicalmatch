@@ -1,30 +1,43 @@
+/**
+ *
+ * Constants
+ *
+ */
+
+/**
+ * The size of the array cardSymbols does not really matter, as long as its length equals at least
+ * half the of the board size
+ */
 const cardSymbols = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
                      "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
 const boardSize = 16;
 
 /**
- * Creates a new Card.
+ * Creates a new Card
  * @class
  */
-var Card = function(cardSymbol){
+let Card = function(cardSymbol){
 	this.cardSymbol = cardSymbol;
 };
 
 /**
- * Creates a new Board.
+ * Creates a new Board
  * @class
  */
-var Board = function(boardSize){
+let Board = function(boardSize){
+
+	if (boardSize / 2 > cardSymbols.length) throw `There are not enough symbols for a board of size ${boardSize}.`;
+
 	this.boardSize = boardSize;
 	this.cards = new Array();
 
 	for (i=0;i<=(boardSize)-1;i++){
 		this.cards[i] = new Card(cardSymbols[Math.floor(i/2)]);
-	};
+	}
 };
 
-Board.prototype.shuffle = function () {
+Board.prototype.shuffleCards = function () {
 	// Shuffle function from http://stackoverflow.com/a/2450976
 	let currentIndex = this.cards.length, temporaryValue, randomIndex;
 
@@ -37,6 +50,15 @@ Board.prototype.shuffle = function () {
 	}
 }
 
+Board.prototype.showCards = function () {
+
+	let docBoard = document.getElementsByClassName("board");
+
+	this.cards.forEach(card => {
+		let cardHTML = `<li class="card"><i class="fa ${card.cardSymbol} fa-2x"></i></li>`;
+		docBoard[0].innerHTML += cardHTML;
+	});
+}
 
 /*
  *
@@ -44,18 +66,14 @@ Board.prototype.shuffle = function () {
  *
  */
 
-pairOdromBoard = new Board(boardSize);
-pairOdromBoard.shuffle();
-
-console.log(pairOdromBoard.boardSize);
-console.log(pairOdromBoard.cards);
+ window.onload=function(){
+	pairOdromBoard = new Board(boardSize);
+	pairOdromBoard.shuffleCards();
+	pairOdromBoard.showCards();
+}
 
 /*
  TODO
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
