@@ -1,3 +1,9 @@
+/*
+ *
+ * Main Styles
+ *
+ */
+
 html{
 	box-sizing: border-box;
 }
@@ -17,7 +23,7 @@ body{
 }
 
 body{
-	background: #ffffff url('../img/purty-wood.png'); /* Background pattern from Subtle Patterns */
+	background: #ffffff url('../img/purty-wood.png');
 	font-family: 'Coda', cursive;
 }
 
@@ -34,14 +40,14 @@ h1{
 }
 
 /*
+ *
  * Styles for the deck
+ *
  */
 
 .deck{
  	width: 660px;
  	min-height: 680px;
- 	/*background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);*/
- 	/*background: url('../img/retina-wood.png');*/
  	background: #235e33;
  	padding: 32px;
  	border-radius: 10px;
@@ -57,7 +63,6 @@ h1{
 .deck .card{
  	height: 125px;
  	width: 125px;
- 	/*background: #2e3d49;*/
  	background: #fff url('../img/card-pattern.jpg');
  	background-size: 100px;
  	font-size: 0;
@@ -89,7 +94,9 @@ h1{
 }
 
 /*
+ *
  * Styles for the Score Panel
+ *
  */
 
 .score-panel{

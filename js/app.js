@@ -14,6 +14,7 @@ const cardFigures = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
                      "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deckSize = 16;
 const docDeck = document.getElementsByClassName("deck")[0];
+const docrestartGame = document.getElementsByClassName("restart")[0];
 
 /**
  * Creates a new Card
@@ -55,18 +56,8 @@ let Deck = function(deckSize){
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
-	this.moveCounter = 0;
+	this.initialize();
 
-	/**
-	 * Adding array of cards
-	 *
-	 */
-
-	this.cards = new Array();
-	for (i=0;i<=(deckSize)-1;i++){
-		//We add the same figure twice
-		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
-	}
 };
 
 Deck.prototype.shuffleCards = function () {
@@ -82,8 +73,28 @@ Deck.prototype.shuffleCards = function () {
 	}
 }
 
-Deck.prototype.showCards = function () {
+Deck.prototype.initialize = function(){
 
+	this.resetMoveCounter();
+	docDeck.innerHTML ="";
+
+	/**
+	 * Adding array of cards
+	 *
+	 */
+
+	this.cards = new Array();
+	for (i=0;i<=(deckSize)-1;i++){
+		//We add the same figure twice
+		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
+	}
+
+	this.shuffleCards();
+	this.showCards();
+
+}
+
+Deck.prototype.showCards = function () {
 	this.cards.forEach(card => {
 		let cardHTML = `<li id="card${card.id}" class="card"><i class="fa ${card.figure} fa-2x"></i></li>`;
 		docDeck.innerHTML += cardHTML;
@@ -128,6 +139,12 @@ Deck.prototype.incrementMoveCounter = function () {
 	docMoveCounter.textContent = this.moveCounter;
 }
 
+Deck.prototype.resetMoveCounter = function () {
+	this.moveCounter=0;
+	const docMoveCounter = document.getElementsByClassName("moves")[0];
+	docMoveCounter.textContent = this.moveCounter;
+}
+
 /*
  *
  * Initial calls
@@ -137,8 +154,6 @@ Deck.prototype.incrementMoveCounter = function () {
  window.onload=function(){
 
 	pairOdromDeck = new Deck(deckSize);
-	pairOdromDeck.shuffleCards();
-	pairOdromDeck.showCards();
 
 	docDeck.addEventListener('click', function(){
 		if (event.target.tagName==="LI"){
@@ -151,6 +166,10 @@ Deck.prototype.incrementMoveCounter = function () {
 				pairOdromDeck.solveGame();
 			}
 		}
+	});
+
+	docrestartGame.addEventListener('click', function(){
+		pairOdromDeck.initialize();
 	});
 
 }
