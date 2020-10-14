@@ -135,14 +135,17 @@ Deck.prototype.solveGame = function () {
 
 Deck.prototype.incrementMoveCounter = function () {
 	this.moveCounter++;
+
+	let movesText =  (this.moveCounter === 1 ? "Move" : "Moves");
+
 	const docMoveCounter = document.getElementsByClassName("moves")[0];
-	docMoveCounter.textContent = this.moveCounter;
+	docMoveCounter.textContent = `${this.moveCounter} ${movesText}`;
 }
 
 Deck.prototype.resetMoveCounter = function () {
 	this.moveCounter=0;
 	const docMoveCounter = document.getElementsByClassName("moves")[0];
-	docMoveCounter.textContent = this.moveCounter;
+	docMoveCounter.textContent = this.moveCounter+ " Moves";
 }
 
 /*
