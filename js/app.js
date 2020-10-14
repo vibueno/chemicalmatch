@@ -40,7 +40,7 @@ let shuffle = function (array){
 		array[currentIndex] = array[randomIndex];
 		array[randomIndex] = temporaryValue;
 	}
-}
+};
 
 /**
  * Creates a new Card
@@ -62,7 +62,7 @@ Card.prototype.flip = function () {
 		docCard.classList.add("open", "show");
 		this.inCurrentRound = true;
 	}
-}
+};
 
 Card.prototype.flipBack = function () {
 
@@ -72,7 +72,7 @@ Card.prototype.flipBack = function () {
 		docCard.classList.remove ("open", "show");
 		this.inCurrentRound = false;
 	}
-}
+};
 
 /**
  * Creates a new Deck
@@ -90,7 +90,7 @@ let Deck = function(deckSize){
 
 Deck.prototype.shuffleCards = function () {
 	shuffle(this.cards);
-}
+};
 
 Deck.prototype.initialize = function(){
 
@@ -104,8 +104,8 @@ Deck.prototype.initialize = function(){
 	shuffle (cardFigures);
 
 	//Adding array of cards
-	this.cards = new Array();
-	for (i=0;i<=(deckSize)-1;i++){
+	this.cards = [];
+	for (let i=0;i<=(deckSize)-1;i++){
 		//We add the same figure twice
 		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
 	}
@@ -113,21 +113,21 @@ Deck.prototype.initialize = function(){
 	this.shuffleCards();
 	this.showCards();
 
-}
+};
 
 Deck.prototype.showCards = function () {
 	this.cards.forEach(card => {
-		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure} fa-2x"></i></li>`;
+		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
 		docDeck.innerHTML += cardHTML;
 	});
-}
+};
 
 Deck.prototype.getFlippedCardsCount = function () {
-	return pairOdromDeck.cards.filter(card => card.inCurrentRound === true).length;
-}
+	return this.cards.filter(card => card.inCurrentRound === true).length;
+};
 
 Deck.prototype.solveRound = function () {
-	let currentRoundCards = pairOdromDeck.cards.filter(card => card.inCurrentRound === true);
+	let currentRoundCards = this.cards.filter(card => card.inCurrentRound === true);
 
 	//If there is a match
 	if (currentRoundCards[0].figure === currentRoundCards[1].figure){
@@ -144,15 +144,15 @@ Deck.prototype.solveRound = function () {
 	currentRoundCards[1].inCurrentRound=false;
 
 	this.incrementMoveCounter();
-}
+};
 
 Deck.prototype.solveGame = function () {
-	let notSolvedCards = pairOdromDeck.cards.filter(card => card.solved === false);
+	let notSolvedCards = this.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
 		alert (`Congratulations! You solved the game in ${this.moveCounter} moves!`);
 	}
-}
+};
 
 Deck.prototype.incrementMoveCounter = function () {
 	this.moveCounter++;
@@ -161,13 +161,13 @@ Deck.prototype.incrementMoveCounter = function () {
 
 	const docMoveCounter = document.getElementsByClassName("moves")[0];
 	docMoveCounter.textContent = `${this.moveCounter} ${movesText}`;
-}
+};
 
 Deck.prototype.resetMoveCounter = function () {
 	this.moveCounter=0;
 	const docMoveCounter = document.getElementsByClassName("moves")[0];
 	docMoveCounter.textContent = this.moveCounter+ " Moves";
-}
+};
 
 /*
  *
@@ -177,7 +177,7 @@ Deck.prototype.resetMoveCounter = function () {
 
  window.onload=function(){
 
-	pairOdromDeck = new Deck(deckSize);
+	let pairOdromDeck = new Deck(deckSize);
 
 	/*
 	 *
@@ -185,7 +185,7 @@ Deck.prototype.resetMoveCounter = function () {
 	 *
 	 */
 
-	docDeck.addEventListener('click', function(){
+	docDeck.addEventListener('click', function(event){
 		if (event.target.tagName==="LI"){
 			let pairOdromcard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
 
@@ -202,4 +202,4 @@ Deck.prototype.resetMoveCounter = function () {
 		pairOdromDeck.initialize();
 	});
 
-}
+};
