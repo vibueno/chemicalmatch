@@ -94,7 +94,7 @@ Deck.prototype.getFlippedCardsCount = function () {
 	return pairOdromDeck.cards.filter(card => card.inCurrentRound === true).length;
 }
 
-Deck.prototype.resolveRound = function () {
+Deck.prototype.solveRound = function () {
 	let currentRoundCards = pairOdromDeck.cards.filter(card => card.inCurrentRound === true);
 
 	//If there is a match
@@ -112,7 +112,14 @@ Deck.prototype.resolveRound = function () {
 	currentRoundCards[1].inCurrentRound=false;
 
 	this.incrementMoveCounter();
+}
 
+Deck.prototype.solveGame = function () {
+	let notSolvedCards = pairOdromDeck.cards.filter(card => card.solved === false);
+
+	if (notSolvedCards.length === 0){
+		alert (`Congratulations! You solved the game in ${this.moveCounter} moves!`);
+	}
 }
 
 Deck.prototype.incrementMoveCounter = function () {
@@ -140,17 +147,10 @@ Deck.prototype.incrementMoveCounter = function () {
 			pairOdromcard.flip();
 
 			if (pairOdromDeck.getFlippedCardsCount()===2){
-				pairOdromDeck.resolveRound();
+				pairOdromDeck.solveRound();
+				pairOdromDeck.solveGame();
 			}
 		}
 	});
 
 }
-
-/*
- TODO
-
-/*
- * In Card listeners:
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
