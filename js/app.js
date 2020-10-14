@@ -8,18 +8,45 @@
  * The size of the array cardFigures does not really matter, as long as its length equals at least
  * half the of the deck size.
  *
- * If there are not enough figures, the deck constructor will throw an error
+ * If the number of card figures in cardFigures exceeds half of the deck size, the programm will choose
+ * the correct amount of figures randomly
+ *
+ * If there are not enough figures, the deck constructor will throw an error.
  */
-const cardFigures = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt",
-                     "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+
+const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
+                     "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-couch",
+                     "fa-fish", "fa-hamburger", "fa-hippo", "fa-kiwi-bird", "fa-pepper-hot",
+                     "fa-subway", "fa-swimmer", "fa-theater-masks", "fa-toilet-paper", "fa-yin-yang"];
 const deckSize = 16;
 const docDeck = document.getElementsByClassName("deck")[0];
 const docrestartGame = document.getElementsByClassName("restart")[0];
+
+
+/**
+ * Shuffles an array
+ * @param  {[array]} array array to be shuffled
+ */
+
+let shuffle = function (array){
+
+	// Shuffle function from http://stackoverflow.com/a/2450976
+	let currentIndex = array.length, temporaryValue, randomIndex;
+
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+}
 
 /**
  * Creates a new Card
  * @class
  */
+
 let Card = function(id, figure){
 	this.id = id;
 	this.figure = figure;
@@ -51,6 +78,7 @@ Card.prototype.flipBack = function () {
  * Creates a new Deck
  * @class
  */
+
 let Deck = function(deckSize){
 
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
@@ -61,16 +89,7 @@ let Deck = function(deckSize){
 };
 
 Deck.prototype.shuffleCards = function () {
-	// Shuffle function from http://stackoverflow.com/a/2450976
-	let currentIndex = this.cards.length, temporaryValue, randomIndex;
-
-	while (currentIndex !== 0) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-		temporaryValue = this.cards[currentIndex];
-		this.cards[currentIndex] = this.cards[randomIndex];
-		this.cards[randomIndex] = temporaryValue;
-	}
+	shuffle(this.cards);
 }
 
 Deck.prototype.initialize = function(){
@@ -79,10 +98,12 @@ Deck.prototype.initialize = function(){
 	docDeck.innerHTML ="";
 
 	/**
-	 * Adding array of cards
-	 *
+	 * In case there are more figures than needed, this shuffle call makes the game more insteresting
+	 * since every time the figures shown will be different
 	 */
+	shuffle (cardFigures);
 
+	//Adding array of cards
 	this.cards = new Array();
 	for (i=0;i<=(deckSize)-1;i++){
 		//We add the same figure twice
@@ -96,7 +117,7 @@ Deck.prototype.initialize = function(){
 
 Deck.prototype.showCards = function () {
 	this.cards.forEach(card => {
-		let cardHTML = `<li id="card${card.id}" class="card"><i class="fa ${card.figure} fa-2x"></i></li>`;
+		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure} fa-2x"></i></li>`;
 		docDeck.innerHTML += cardHTML;
 	});
 }
