@@ -155,6 +155,12 @@ Deck.prototype.resetMoveCounter = function () {
 
 	pairOdromDeck = new Deck(deckSize);
 
+	/*
+	 *
+	 * Events
+	 *
+	 */
+
 	docDeck.addEventListener('click', function(){
 		if (event.target.tagName==="LI"){
 			let pairOdromcard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
