@@ -181,7 +181,7 @@ Deck.prototype.initialize = function(){
 
 	this.addCards();
 	this.shuffleCards();
-	this.showCards();
+	this.setUpDOMCards();
 
 };
 
@@ -195,25 +195,28 @@ Deck.prototype.shuffleCards = function () {
 /**
  * Adds cards to the DOM
  */
-Deck.prototype.showCards = function () {
-	this.cards.forEach(card => {
-		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
-		this.DOMNode.innerHTML += cardHTML;
+
+Deck.prototype.addCardstoDOM = function () {
+
+	return new Promise((resolve) => {
+		this.cards.forEach(card => {
+			let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
+			this.DOMNode.innerHTML += cardHTML;
+		});
+		resolve("Cards added");
 	});
+}
 
-/**
- * This code needs to be executed later,
- * because otherwise the nodes don't exist yet in the DOM
- * and the reference is not linked correctly, making the application to fail.
- *
- * Could this be solved with promises?
- */
-
+Deck.prototype.addDOMNodetoCards = function () {
 	this.cards.forEach(card => {
 		card.DOMNode = document.getElementById(`card${card.id}`);
 	});
+}
 
-};
+Deck.prototype.setUpDOMCards = async function () {
+	await this.addCardstoDOM();
+	this.addDOMNodetoCards();
+}
 
 /**
  * Returns the number of cards used in the current round
@@ -236,7 +239,6 @@ Deck.prototype.solveRound = async function () {
 		currentRoundCards[1].DOMNode.classList.add("matchtrans");
 		currentRoundCards[0].DOMNode.classList.add("matchtrans");
 
-		//Should this be a promise too? animationend event?
 		await sleep(1500);
 
 		currentRoundCards[0].DOMNode.classList.remove("matchtrans");
