@@ -4,18 +4,20 @@
  *
  */
 
-@media screen and (min-width:400px) {
-
-}
-
-/**
- *
- * Size increase
- *
- */
-
 @media screen and (min-width:600px) {
+	.deck{
+	 	border: 5px solid #412b0c;
+	 	padding: 1em;
+	}
 
+	.deck .card{
+	 	border: 4px solid #fff;
+	 	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+	}
+
+	.deck .card.open{
+	 	border: 4px solid #000;
+	}
 }
 
 /**

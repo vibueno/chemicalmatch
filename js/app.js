@@ -86,9 +86,6 @@ Card.prototype.flip = function () {
  * Flips the card back
  */
 Card.prototype.flipBack = function () {
-
-	let DOMNode = document.getElementById(`card${this.id}`);
-
 	if (this.solved===false){
 		this.DOMNode.classList.remove ("open", "show");
 		this.inCurrentRound = false;
@@ -204,7 +201,7 @@ Deck.prototype.addCardstoDOM = function () {
 		});
 		resolve("Cards added");
 	});
-}
+};
 
 /**
  * Adds DOM Nodes to the cards
@@ -213,7 +210,7 @@ Deck.prototype.addDOMNodetoCards = function () {
 	this.cards.forEach(card => {
 		card.DOMNode = document.getElementById(`card${card.id}`);
 	});
-}
+};
 
 /**
  * Sets up everything between the cards and the DOM
@@ -221,7 +218,7 @@ Deck.prototype.addDOMNodetoCards = function () {
 Deck.prototype.setUpDOMCards = async function () {
 	await this.addCardstoDOM();
 	this.addDOMNodetoCards();
-}
+};
 
 /**
  * Returns the number of cards used in the current round
