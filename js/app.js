@@ -24,13 +24,12 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-hotdog", "fa-dog", "fa-life-ring", "fa-chess-rook", "fa-piggy-bank",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
-const docDeck = document.getElementsByClassName("deck")[0];
-const docrestartGame = document.getElementsByClassName("restart")[0];
 
+const DOMRestartGame = document.getElementsByClassName("restart")[0];
 
 /**
  * Shuffles an array
- * @param  {[array]} array array to be shuffled
+ * @param  {[array]} array array to be shuffled.
  */
 let shuffle = function (array){
 
@@ -46,10 +45,9 @@ let shuffle = function (array){
 	}
 };
 
-
 /**
  * Pauses execution
- * @param  {[Number]} ms amount of miliseconds
+ * @param  {[Number]} ms amount of miliseconds.
  */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -63,12 +61,14 @@ function sleep(ms) {
  * @property {String}  figure         font-awesome icon assigned to the card.
  * @property {Boolean} solved         tells whether the card has been solved.
  * @property {Boolean} inCurrentRound tells whether the card is being used in the current round.
+ * @property {Object}  DOMNode        DOM object related to the card.
  */
 let Card = function(id, figure){
 	this.id = id;
 	this.figure = figure;
 	this.solved = false;
 	this.inCurrentRound = false;
+	this.DOMNode = null;
 };
 
 /**
@@ -76,10 +76,10 @@ let Card = function(id, figure){
  */
 Card.prototype.flip = function () {
 
-	let docCard = document.getElementById(`card${this.id}`);
+	let DOMNode = document.getElementById(`card${this.id}`);
 
 	if (this.solved===false){
-		docCard.classList.add("open", "show");
+		DOMNode.classList.add("open", "show");
 		this.inCurrentRound = true;
 	}
 };
@@ -89,12 +89,41 @@ Card.prototype.flip = function () {
  */
 Card.prototype.flipBack = function () {
 
-	let docCard = document.getElementById(`card${this.id}`);
+	let DOMNode = document.getElementById(`card${this.id}`);
 
 	if (this.solved===false){
-		docCard.classList.remove ("open", "show");
+		DOMNode.classList.remove ("open", "show");
 		this.inCurrentRound = false;
 	}
+};
+
+/**
+ * Creates a new move counter
+ * @class
+ *
+ * @property {Number}         moves stores the number of moves performed in the current game.
+ * @property {Object} DOMNode DOM object related to the counter.
+ */
+let MoveCounter = function(){
+	this.moves = 0;
+	this.DOMNode = document.getElementsByClassName("moves")[0];
+};
+
+/**
+ * Resets the counter
+ */
+MoveCounter.prototype.reset = function(){
+	this.moves = 0;
+	this.DOMNode.textContent = `${this.moves} Moves`;
+};
+
+/**
+ * Increments the counter
+ */
+MoveCounter.prototype.increment = function(){
+	this.moves++;
+	let movesText = (this.moves === 1 ? "Move" : "Moves");
+	this.DOMNode.textContent = `${this.moves} ${movesText}`;
 };
 
 /**
@@ -102,19 +131,21 @@ Card.prototype.flipBack = function () {
  * @class
  *
  * @property {Number}  deckSize      number of cards of the deck.
+ * @property {Object}  moveCounter   object containing the functionality of the move counter.
  * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
  * @property {Array}   cards         card objects included the deck.
+ * @property {Object}  DOMNode       DOM object related to the deck.
  */
 let Deck = function(deckSize){
 
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
-
+	this.moveCounter = new MoveCounter();
 
 	/**
-	 * This method adds more properties to the Deck class.
-	 * This happens inside initialize, since these properties need to be reset every time a new game starts
+	 * The initialize method adds more properties to the Deck class.
+	 * This happens inside this method, since these properties need to be reset every time a new game starts
 	 */
 
 	this.initialize();
@@ -122,13 +153,9 @@ let Deck = function(deckSize){
 };
 
 /**
- * Initializes the deck
+ * Adds cards to the deck
  */
-Deck.prototype.initialize = function(){
-
-	this.roundComplete = false;
-	this.resetMoveCounter();
-	docDeck.innerHTML ="";
+Deck.prototype.addCards = function(){
 
 	/**
 	 * In case there are more figures than needed, this shuffle call makes the game more insteresting
@@ -142,7 +169,19 @@ Deck.prototype.initialize = function(){
 		//We add the same figure twice
 		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
 	}
+};
 
+/**
+ * Initializes the deck
+ */
+Deck.prototype.initialize = function(){
+
+	this.moveCounter.reset();
+	this.roundComplete = false;
+	this.DOMNode = document.getElementsByClassName("deck")[0];
+	this.DOMNode.innerHTML ="";
+
+	this.addCards();
 	this.shuffleCards();
 	this.showCards();
 
@@ -161,7 +200,9 @@ Deck.prototype.shuffleCards = function () {
 Deck.prototype.showCards = function () {
 	this.cards.forEach(card => {
 		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
-		docDeck.innerHTML += cardHTML;
+		this.DOMNode.innerHTML += cardHTML;
+
+		card.DOMNode = document.getElementById(`card${card.id}`);
 	});
 };
 
@@ -193,7 +234,7 @@ Deck.prototype.solveRound = async function () {
 	currentRoundCards[0].inCurrentRound=false;
 	currentRoundCards[1].inCurrentRound=false;
 
-	this.incrementMoveCounter();
+	this.moveCounter.increment();
 	this.roundComplete = false;
 };
 
@@ -206,27 +247,6 @@ Deck.prototype.solveGame = function () {
 	if (notSolvedCards.length === 0){
 		alert (`Congratulations! You solved the game in ${this.moveCounter} moves!`);
 	}
-};
-
-/**
- * Increments the move counter
- */
-Deck.prototype.incrementMoveCounter = function () {
-	this.moveCounter++;
-
-	let movesText =  (this.moveCounter === 1 ? "Move" : "Moves");
-
-	const docMoveCounter = document.getElementsByClassName("moves")[0];
-	docMoveCounter.textContent = `${this.moveCounter} ${movesText}`;
-};
-
-/**
- * Resets the move counter
- */
-Deck.prototype.resetMoveCounter = function () {
-	this.moveCounter=0;
-	const docMoveCounter = document.getElementsByClassName("moves")[0];
-	docMoveCounter.textContent = this.moveCounter+ " Moves";
 };
 
 /*
@@ -245,7 +265,7 @@ Deck.prototype.resetMoveCounter = function () {
 	 *
 	 */
 
-	docDeck.addEventListener('click', function(event){
+	pairOdromDeck.DOMNode.addEventListener('click', function(event){
 		if (pairOdromDeck.roundComplete === false && event.target.tagName==="LI"){
 			let pairOdromcard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
 
@@ -259,7 +279,7 @@ Deck.prototype.resetMoveCounter = function () {
 		}
 	});
 
-	docrestartGame.addEventListener('click', function(){
+	DOMRestartGame.addEventListener('click', function(){
 		pairOdromDeck.initialize();
 	});
 
