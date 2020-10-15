@@ -17,7 +17,12 @@
 const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-couch",
                      "fa-fish", "fa-hamburger", "fa-hippo", "fa-kiwi-bird", "fa-pepper-hot",
-                     "fa-subway", "fa-swimmer", "fa-theater-masks", "fa-toilet-paper", "fa-yin-yang"];
+                     "fa-subway", "fa-swimmer", "fa-theater-masks", "fa-toilet-paper", "fa-yin-yang",
+                     "fa-toilet", "fa-ankh", "fa-bacterium", "fa-biohazard","fa-bong",
+                     "fa-brain", "fa-camera-retro", "fa-carrot", "fa-moon", "fa-hand-spock",
+                     "fa-frog", "fa-ghost", "fa-hiking", "fa-helicopter", "fa-hat-wizard",
+                     "fa-hotdog", "fa-dog", "fa-life-ring", "fa-chess-rook", "fa-piggy-bank",
+                     "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
 const docDeck = document.getElementsByClassName("deck")[0];
 const docrestartGame = document.getElementsByClassName("restart")[0];
@@ -41,6 +46,15 @@ let shuffle = function (array){
 		array[randomIndex] = temporaryValue;
 	}
 };
+
+
+/**
+ * Pauses execution
+ * @param  {[Number]} ms amount of miliseconds
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /**
  * Creates a new Card
@@ -94,6 +108,7 @@ Deck.prototype.shuffleCards = function () {
 
 Deck.prototype.initialize = function(){
 
+	this.roundComplete = false;
 	this.resetMoveCounter();
 	docDeck.innerHTML ="";
 
@@ -126,7 +141,7 @@ Deck.prototype.getFlippedCardsCount = function () {
 	return this.cards.filter(card => card.inCurrentRound === true).length;
 };
 
-Deck.prototype.solveRound = function () {
+Deck.prototype.solveRound = async function () {
 	let currentRoundCards = this.cards.filter(card => card.inCurrentRound === true);
 
 	//If there is a match
@@ -136,6 +151,7 @@ Deck.prototype.solveRound = function () {
 	}
 	else
 	{
+		await sleep(1000);
 		currentRoundCards[0].flipBack();
 		currentRoundCards[1].flipBack();
 	}
@@ -144,6 +160,7 @@ Deck.prototype.solveRound = function () {
 	currentRoundCards[1].inCurrentRound=false;
 
 	this.incrementMoveCounter();
+	this.roundComplete = false;
 };
 
 Deck.prototype.solveGame = function () {
@@ -186,12 +203,13 @@ Deck.prototype.resetMoveCounter = function () {
 	 */
 
 	docDeck.addEventListener('click', function(event){
-		if (event.target.tagName==="LI"){
+		if (pairOdromDeck.roundComplete === false && event.target.tagName==="LI"){
 			let pairOdromcard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
 
 			pairOdromcard.flip();
 
 			if (pairOdromDeck.getFlippedCardsCount()===2){
+				pairOdromDeck.roundComplete = true;
 				pairOdromDeck.solveRound();
 				pairOdromDeck.solveGame();
 			}
