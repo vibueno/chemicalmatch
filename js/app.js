@@ -61,7 +61,7 @@ function sleep(ms) {
  * @property {String}  figure         font-awesome icon assigned to the card.
  * @property {Boolean} solved         tells whether the card has been solved.
  * @property {Boolean} inCurrentRound tells whether the card is being used in the current round.
- * @property {Object}  DOMNode        DOM object related to the card.
+ * @property {Object}  DOMNode        DOM object related to the card. To spare further lookups.
  */
 let Card = function(id, figure){
 	this.id = id;
@@ -100,7 +100,7 @@ Card.prototype.flipBack = function () {
  * @class
  *
  * @property {Number}         moves stores the number of moves performed in the current game.
- * @property {Object} DOMNode DOM object related to the counter.
+ * @property {Object} DOMNode DOM object related to the counter. To spare further lookups.
  */
 let MoveCounter = function(){
 	this.moves = 0;
@@ -132,7 +132,7 @@ MoveCounter.prototype.increment = function(){
  * @property {Object}  moveCounter   object containing the functionality of the move counter.
  * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
  * @property {Array}   cards         card objects included the deck.
- * @property {Object}  DOMNode       DOM object related to the deck.
+ * @property {Object}  DOMNode       DOM object related to the deck. To spare further lookups.
  */
 let Deck = function(deckSize){
 
@@ -195,7 +195,6 @@ Deck.prototype.shuffleCards = function () {
 /**
  * Adds cards to the DOM
  */
-
 Deck.prototype.addCardstoDOM = function () {
 
 	return new Promise((resolve) => {
@@ -207,12 +206,18 @@ Deck.prototype.addCardstoDOM = function () {
 	});
 }
 
+/**
+ * Adds DOM Nodes to the cards
+ */
 Deck.prototype.addDOMNodetoCards = function () {
 	this.cards.forEach(card => {
 		card.DOMNode = document.getElementById(`card${card.id}`);
 	});
 }
 
+/**
+ * Sets up everything between the cards and the DOM
+ */
 Deck.prototype.setUpDOMCards = async function () {
 	await this.addCardstoDOM();
 	this.addDOMNodetoCards();
@@ -233,18 +238,19 @@ Deck.prototype.solveRound = async function () {
 
 	//If there is a match
 	if (currentRoundCards[0].figure === currentRoundCards[1].figure){
-		currentRoundCards[0].solved=true;
-		currentRoundCards[1].solved=true;
 
-		currentRoundCards[1].DOMNode.classList.add("matchtrans");
-		currentRoundCards[0].DOMNode.classList.add("matchtrans");
+		currentRoundCards.forEach(function(card){
+			card.solved=true;
+			card.DOMNode.classList.add("matchtrans");
+		});
 
 		await sleep(1500);
 
-		currentRoundCards[0].DOMNode.classList.remove("matchtrans");
-		currentRoundCards[0].DOMNode.classList.add("match");
-		currentRoundCards[1].DOMNode.classList.remove("matchtrans");
-		currentRoundCards[1].DOMNode.classList.add("match");
+		currentRoundCards.forEach(function(card){
+			card.DOMNode.classList.remove("matchtrans");
+			card.DOMNode.classList.add("match");
+		});
+
 	}
 	else
 	{
