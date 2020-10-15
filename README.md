@@ -1,4 +1,4 @@
-# pairOdrom
+# Chemical Match
 
 ## Table of Contents
 - [Description](#description)
@@ -11,7 +11,7 @@ This project was developed within the frame of the Front End Developer Nanodegre
 
 ## Live
 
-For a live version of pairOdrom, visit [GitHub Pages](https://vibueno.github.io/pairodrom).
+For a live version of Chemical Match, visit [GitHub Pages](https://vibueno.github.io/chemicalmatch).
 
 ## Libraries
 No libraries have been used for this project. Only vanilla JS.

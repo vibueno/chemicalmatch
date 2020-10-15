@@ -4,9 +4,26 @@
  *
  */
 
-@media screen and (min-width:600px) {
+@media screen and (min-width:350px) {
+	h1{
+		font-size: 2em;
+	}
+}
+
+/**
+ *
+ * Size increase
+ *
+ */
+
+@media screen and (min-width:550px) {
+
+	h1{
+		font-size: 3.2em;
+	}
+
 	.deck{
-	 	border: 5px solid #412b0c;
+	 	border: 5px solid #302719;
 	 	padding: 1em;
 	}
 
@@ -18,18 +35,8 @@
 	.deck .card.open{
 	 	border: 4px solid #000;
 	}
-}
-
-/**
- *
- * Size increase
- *
- */
-
-@media screen and (min-width:750px) {
 
 }
-
 /**
  *
  * Size increase
@@ -38,4 +45,7 @@
 
 @media screen and (min-width:900px) {
 
+	h1{
+		font-size: 4.5em;
+	}
 }
