@@ -64,8 +64,8 @@ h1{
 .deck{
 	width: 70vw;
 	height: 70vw;
-	max-width: 800px;
-	max-height: 800px;
+	max-width: 700px;
+	max-height: 700px;
  	background: #235e33;
  	border-radius: 10px;
  	border: 5px solid #412b0c;
@@ -101,10 +101,23 @@ h1{
  	font-size: 6vw;
  }
 
+.deck .card.matchtrans{
+	/* Somehow this does not work if you change the order of the transformations
+   * to first scale and then rotate (?)
+	 */
+	-webkit-transform: rotateZ(+1440deg) scale(1.2);
+  -ms-transform: rotateZ(+1440deg) scale(1.2);
+	transform: rotateZ(+1440deg) scale(1.2);
+
+	-webkit-transition-duration: 1s;
+	-ms-transition-duration: 1s;
+	transition-duration: 1s;
+}
+
 .deck .card.match{
  	cursor: default;
- 	background: #02ccba;
- 	font-size: 33px;
+ 	color: #ccc;
+ 	border-color: #ccc;
 }
 
 /*

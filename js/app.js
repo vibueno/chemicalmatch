@@ -76,10 +76,8 @@ let Card = function(id, figure){
  */
 Card.prototype.flip = function () {
 
-	let DOMNode = document.getElementById(`card${this.id}`);
-
 	if (this.solved===false){
-		DOMNode.classList.add("open", "show");
+		this.DOMNode.classList.add("open", "show");
 		this.inCurrentRound = true;
 	}
 };
@@ -92,7 +90,7 @@ Card.prototype.flipBack = function () {
 	let DOMNode = document.getElementById(`card${this.id}`);
 
 	if (this.solved===false){
-		DOMNode.classList.remove ("open", "show");
+		this.DOMNode.classList.remove ("open", "show");
 		this.inCurrentRound = false;
 	}
 };
@@ -201,9 +199,20 @@ Deck.prototype.showCards = function () {
 	this.cards.forEach(card => {
 		let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
 		this.DOMNode.innerHTML += cardHTML;
+	});
 
+/**
+ * This code needs to be executed later,
+ * because otherwise the nodes don't exist yet in the DOM
+ * and the reference is not linked correctly, making the application to fail.
+ *
+ * Could this be solved with promises?
+ */
+
+	this.cards.forEach(card => {
 		card.DOMNode = document.getElementById(`card${card.id}`);
 	});
+
 };
 
 /**
@@ -223,6 +232,17 @@ Deck.prototype.solveRound = async function () {
 	if (currentRoundCards[0].figure === currentRoundCards[1].figure){
 		currentRoundCards[0].solved=true;
 		currentRoundCards[1].solved=true;
+
+		currentRoundCards[1].DOMNode.classList.add("matchtrans");
+		currentRoundCards[0].DOMNode.classList.add("matchtrans");
+
+		//Should this be a promise too? animationend event?
+		await sleep(1500);
+
+		currentRoundCards[0].DOMNode.classList.remove("matchtrans");
+		currentRoundCards[0].DOMNode.classList.add("match");
+		currentRoundCards[1].DOMNode.classList.remove("matchtrans");
+		currentRoundCards[1].DOMNode.classList.add("match");
 	}
 	else
 	{
@@ -245,7 +265,7 @@ Deck.prototype.solveGame = function () {
 	let notSolvedCards = this.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
-		alert (`Congratulations! You solved the game in ${this.moveCounter} moves!`);
+		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves!`);
 	}
 };
 
