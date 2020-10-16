@@ -192,6 +192,7 @@ Timer.prototype.update = function(){
  * Resets the timer
  */
 Timer.prototype.reset = function(){
+	this.stop();
   this.seconds = 0;
   this.minutes = 0;
   this.DOMNodeTimer.innerHTML = "00:00";

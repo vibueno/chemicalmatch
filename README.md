@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Libraries](#libraries)
-- [Programming](#programming)s
+- [Programming](#programming)
 - [Validations](#validations)
 
 ## Description
