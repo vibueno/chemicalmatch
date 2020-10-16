@@ -331,7 +331,7 @@ Deck.prototype.solveRound = async function () {
 	}
 	else
 	{
-		await sleep(1000);
+		await sleep(700);
 		currentRoundCards[0].flipBack();
 		currentRoundCards[1].flipBack();
 	}

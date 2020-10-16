@@ -57,17 +57,6 @@ h1{
 	margin: 0.5em auto 0.3em auto;
 	text-transform: uppercase;
 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
-
-  /*Color gradient for text*/
-  /*
-	Removed for now, since it is not standard CSS
-	and does not work on Safari
-
-  background: -webkit-linear-gradient(left, #f768f8, #00a8e1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-	*/
-
   color: #ead5ff;
 }
 
@@ -129,11 +118,11 @@ h1{
  }
 
 .deck .card.matchtrans{
-	/* Somehow this does not work if you change the order of the transformations
+	/* Somehow this animation does not work if you change the order of the transformations
    * to first scale and then rotate (?)
 	 */
-	transform: rotateZ(+1440deg) scale(1.2);
-	transition-duration: 1s;
+	transform: rotateZ(+1080deg) scale(1.2);
+	transition-duration: .7s;
 }
 
 .deck .card.open.match{
