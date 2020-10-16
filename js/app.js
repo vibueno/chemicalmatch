@@ -137,6 +137,7 @@ let Deck = function(deckSize){
 
 	this.deckSize = deckSize;
 	this.moveCounter = new MoveCounter();
+	this.DOMNode = document.getElementsByClassName("deck")[0];
 
 	/**
 	 * The initialize method adds more properties to the Deck class.
@@ -173,7 +174,6 @@ Deck.prototype.initialize = function(){
 
 	this.moveCounter.reset();
 	this.roundComplete = false;
-	this.DOMNode = document.getElementsByClassName("deck")[0];
 	this.DOMNode.innerHTML ="";
 
 	this.addCards();

@@ -8,7 +8,7 @@
 
 /*
  *
- * Main Styles
+ * Main
  *
  */
 
@@ -32,13 +32,13 @@ body{
 
 body{
 	background: #ffffff url('../img/purty-wood.png');
-	font-family: 'Coda', cursive;
 	min-width: 240px;
 }
 
 div,
 .deck,
-h1{
+h1,
+footer{
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -72,7 +72,7 @@ h1{
 
 /*
  *
- * Styles for the deck
+ * Deck
  *
  */
 
@@ -135,7 +135,7 @@ h1{
 
 /*
  *
- * Styles for the Score Panel
+ * Score Panel
  *
  */
 
@@ -148,4 +148,56 @@ h1{
 .score-panel .restart{
  	float: right;
  	cursor: pointer;
+}
+
+/**
+ *
+ * Footer
+ *
+ */
+
+footer {
+	position: relative;
+  margin: 1em auto 0 auto;
+  padding: 0.4em 0.4em 0.4em 0.4em;
+  width: 100%;
+  border-top: 2px solid #302719;
+  width: 70vw;
+  text-align: center;
+}
+
+footer ul {
+  width: 100%;
+  padding: 0 0 10px 0;
+  margin: 0;
+}
+
+footer li {
+  display: inline;
+  margin: 0 0.5em;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: #56445a;
+}
+
+footer a:hover {
+	color: #c60e13;
+	font-size: 1.05em;
+}
+
+.footer-credits
+ {
+ 	width: 100%;
+  font-size: 1em;
+  margin: 5px 0 0 0;
+  padding: 0 0 10px 0;
+  align-content: center;
+}
+
+.footer-credits-title,
+{
+  font-weight: 600;
 }
