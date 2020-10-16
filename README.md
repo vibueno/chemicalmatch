@@ -4,6 +4,7 @@
 - [Description](#description)
 - [Libraries](#libraries)
 - [Programming](#programming)
+- [Improvements](#improvements)
 - [Validations](#validations)
 
 ## Description
@@ -20,6 +21,9 @@ No libraries have been used for this project. Only vanilla JS.
 * Pseudoclassical pattern
 * Event Delegation
 * JS Promises
+
+## Improvements
+* High scores
 
 ## Validations
 * [HTML (W3C)](https://validator.w3.org)
