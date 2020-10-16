@@ -19,6 +19,7 @@ No libraries have been used for this project. Only vanilla JS.
 ## Programming
 * Pseudoclassical pattern
 * Event Delegation
+* JS Promises
 
 ## Validations
 * [HTML (W3C)](https://validator.w3.org)
