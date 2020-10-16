@@ -25,8 +25,6 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
 
-const DOMRestartGame = document.getElementsByClassName("restart")[0];
-
 /**
  * Shuffles an array
  * @param  {[array]} array array to be shuffled.
@@ -51,6 +49,35 @@ let shuffle = function (array){
  */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Formats number to 00
+ * @param  {[Number]} val value to be formatted.
+ */
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
+/**
+ * Returns formatted amount of seconds
+ * @param  {[Number]} seconds number of seconds.
+ */
+function formatSeconds(seconds){
+	return pad(seconds % 60);
+}
+
+/**
+ * Returns formatted amount of minutes
+ * @param  {[Number]} seconds number of seconds.
+ */
+function formatMinutes(seconds){
+	return pad(parseInt(seconds / 60));
 }
 
 /**
@@ -122,6 +149,55 @@ MoveCounter.prototype.increment = function(){
 };
 
 /**
+ * Creates a new timer
+ * @class
+ *
+ */
+let Timer = function(){
+	//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+	this.running = false;
+	this.seconds = 0;
+	this.DOMNodeTimer = document.getElementById("timer");
+	this.DOMNodeTimer.innerHTML="00:00";
+};
+
+/**
+ * Starts the timer
+ */
+Timer.prototype.start = function(){
+
+	//We need to bind this, in order to not to lose its value due to
+	//the use of setInterval
+	this.IntervalId = setInterval(this.update.bind(this), 1000);
+	this.running = true;
+};
+
+/**
+ * Stops the timer
+ */
+Timer.prototype.stop = function(){
+	clearInterval(this.IntervalId);
+	this.running = false;
+};
+
+/**
+ * Updates the timer
+ */
+Timer.prototype.update = function(){
+  this.seconds++;
+  this.DOMNodeTimer.innerHTML = `${formatMinutes(this.seconds)}:${formatSeconds(this.seconds)}`;
+};
+
+/**
+ * Resets the timer
+ */
+Timer.prototype.reset = function(){
+  this.seconds = 0;
+  this.minutes = 0;
+  this.DOMNodeTimer.innerHTML = "00:00";
+};
+
+/**
  * Creates a new Deck
  * @class
  *
@@ -137,13 +213,13 @@ let Deck = function(deckSize){
 
 	this.deckSize = deckSize;
 	this.moveCounter = new MoveCounter();
+	this.timer = new Timer();
 	this.DOMNode = document.getElementsByClassName("deck")[0];
 
 	/**
 	 * The initialize method adds more properties to the Deck class.
 	 * This happens inside this method, since these properties need to be reset every time a new game starts
 	 */
-
 	this.initialize();
 
 };
@@ -173,6 +249,7 @@ Deck.prototype.addCards = function(){
 Deck.prototype.initialize = function(){
 
 	this.moveCounter.reset();
+	this.timer.reset();
 	this.roundComplete = false;
 	this.DOMNode.innerHTML ="";
 
@@ -270,7 +347,8 @@ Deck.prototype.solveGame = function () {
 	let notSolvedCards = this.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
-		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves!`);
+		this.timer.stop();
+		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves, ${formatMinutes(this.timer.seconds)} minutes and ${formatSeconds(this.timer.seconds)} seconds`);
 	}
 };
 
@@ -282,6 +360,8 @@ Deck.prototype.solveGame = function () {
 
  window.onload=function(){
 
+ 	const DOMRestartGame = document.getElementById("restart");
+
 	let pairOdromDeck = new Deck(deckSize);
 
 	/*
@@ -292,9 +372,13 @@ Deck.prototype.solveGame = function () {
 
 	pairOdromDeck.DOMNode.addEventListener('click', function(event){
 		if (pairOdromDeck.roundComplete === false && event.target.tagName==="LI"){
-			let pairOdromcard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
+			let pairOdromCard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
 
-			pairOdromcard.flip();
+			if (pairOdromDeck.timer.running === false){
+				pairOdromDeck.timer.start();
+			}
+
+			pairOdromCard.flip();
 
 			if (pairOdromDeck.getCurrentRoundCount()===2){
 				pairOdromDeck.roundComplete = true;
