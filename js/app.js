@@ -311,6 +311,8 @@ Deck.prototype.getCurrentRoundCount = function () {
 Deck.prototype.solveRound = async function () {
 	let currentRoundCards = this.cards.filter(card => card.inCurrentRound === true);
 
+	this.moveCounter.increment();
+
 	//If there is a match
 	if (currentRoundCards[0].figure === currentRoundCards[1].figure){
 
@@ -337,7 +339,6 @@ Deck.prototype.solveRound = async function () {
 	currentRoundCards[0].inCurrentRound=false;
 	currentRoundCards[1].inCurrentRound=false;
 
-	this.moveCounter.increment();
 	this.roundComplete = false;
 };
 
