@@ -25,6 +25,8 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
 
+let pairOdromGame = null;
+
 /**
  * Shuffles an array
  * @param  {[array]} array array to be shuffled.
@@ -79,6 +81,24 @@ function formatSeconds(seconds){
 function formatMinutes(seconds){
 	return pad(parseInt(seconds / 60));
 }
+
+	/**
+	 * Shows/Hides the button New Game
+	 * @param  {[Boolean]} show indicates whether to show or hide the button
+	 */
+	function showNewGameButton(show){
+
+		const DOMGameStart = document.getElementsByClassName("game-start")[0];
+
+		if (show){
+			DOMGameStart.classList.add("game-start-show");
+		  DOMGameStart.classList.remove("game-start-hidden");
+		}
+		else{
+			DOMGameStart.classList.add("game-start-hidden");
+		  DOMGameStart.classList.remove("game-start-show");
+		}
+	}
 
 /**
  * Creates a new Card
@@ -213,8 +233,6 @@ let Deck = function(deckSize){
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
-	this.moveCounter = new MoveCounter();
-	this.timer = new Timer();
 	this.DOMNode = document.getElementsByClassName("deck")[0];
 
 	/**
@@ -249,15 +267,11 @@ Deck.prototype.addCards = function(){
  */
 Deck.prototype.initialize = function(){
 
-	this.moveCounter.reset();
-	this.timer.reset();
-	this.roundComplete = false;
 	this.DOMNode.innerHTML ="";
 
 	this.addCards();
 	this.shuffleCards();
 	this.setUpDOMCards();
-
 };
 
 /**
@@ -299,17 +313,34 @@ Deck.prototype.setUpDOMCards = async function () {
 };
 
 /**
+ * Creates a new Game
+ * @class
+ *
+ */
+
+let Game = function(Deck){
+	this.moveCounter = new MoveCounter();
+	this.timer = new Timer();
+	this.roundComplete = false;
+	this.Deck = Deck;
+};
+
+Game.prototype.start = function(){
+	this.timer.start();
+};
+
+/**
  * Returns the number of cards used in the current round
  */
-Deck.prototype.getCurrentRoundCount = function () {
-	return this.cards.filter(card => card.inCurrentRound === true).length;
+Game.prototype.getCurrentRoundCount = function () {
+	return this.Deck.cards.filter(card => card.inCurrentRound === true).length;
 };
 
 /**
  * Solves the current round
  */
-Deck.prototype.solveRound = async function () {
-	let currentRoundCards = this.cards.filter(card => card.inCurrentRound === true);
+Game.prototype.solveRound = async function () {
+	let currentRoundCards = this.Deck.cards.filter(card => card.inCurrentRound === true);
 
 	this.moveCounter.increment();
 
@@ -345,12 +376,13 @@ Deck.prototype.solveRound = async function () {
 /**
  * Solves the game
  */
-Deck.prototype.solveGame = function () {
-	let notSolvedCards = this.cards.filter(card => card.solved === false);
+Game.prototype.solveGame = function () {
+	let notSolvedCards = this.Deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
 		this.timer.stop();
-		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves, ${formatMinutes(this.timer.seconds)} minutes and ${formatSeconds(this.timer.seconds)} seconds`);
+		showNewGameButton(true);
+		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves, ${formatMinutes(this.timer.seconds)} minute(s) and ${formatSeconds(this.timer.seconds)} seconds`);
 	}
 };
 
@@ -363,8 +395,10 @@ Deck.prototype.solveGame = function () {
  window.onload=function(){
 
  	const DOMRestartGame = document.getElementById("restart");
+ 	const DOMGameStart = document.getElementsByClassName("game-start")[0];
 
 	let pairOdromDeck = new Deck(deckSize);
+	pairOdromDeck.initialize();
 
 	/*
 	 *
@@ -373,25 +407,27 @@ Deck.prototype.solveGame = function () {
 	 */
 
 	pairOdromDeck.DOMNode.addEventListener('click', function(event){
-		if (pairOdromDeck.roundComplete === false && event.target.tagName==="LI"){
+		if (pairOdromGame.roundComplete === false && event.target.tagName==="LI"){
 			let pairOdromCard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
-
-			if (pairOdromDeck.timer.running === false){
-				pairOdromDeck.timer.start();
-			}
 
 			pairOdromCard.flip();
 
-			if (pairOdromDeck.getCurrentRoundCount()===2){
-				pairOdromDeck.roundComplete = true;
-				pairOdromDeck.solveRound();
-				pairOdromDeck.solveGame();
+			if (pairOdromGame.getCurrentRoundCount()===2){
+				pairOdromGame.roundComplete = true;
+				pairOdromGame.solveRound();
+				pairOdromGame.solveGame();
 			}
 		}
 	});
 
+	DOMGameStart.addEventListener('click', function(){
+		pairOdromGame = new Game (pairOdromDeck);
+		pairOdromGame.start();
+		showNewGameButton(false);
+	});
+
 	DOMRestartGame.addEventListener('click', function(){
-		pairOdromDeck.initialize();
+		pairOdromGame = new Game (pairOdromDeck);
 	});
 
 };

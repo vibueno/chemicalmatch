@@ -9,8 +9,12 @@
 	  font-size: 1.8em;
 	}
 
+	.game-start{
+		font-size: 1.1em;
+	}
+
 	.footer-credits{
-  	font-size: 0.8em;
+  	font-size: 0.75em;
 	}
 }
 /**
@@ -38,6 +42,10 @@
  		border: 4px solid #92e1fc;
 	}
 
+	.game-start{
+		font-size: 1.3em;
+	}
+
 	.footer-credits{
   	font-size: 0.9em;
 	}
@@ -52,6 +60,10 @@
 @media screen and (min-width:800px){
 	h1{
 	  font-size: 4em;
+	}
+
+	.game-start{
+		font-size: 1.75em;
 	}
 
 	.footer-credits{
@@ -69,6 +81,10 @@
 @media screen and (min-width:1000px){
 	h1{
 	  font-size: 6em;
+	}
+
+	.game-start{
+		font-size: 1.9em;
 	}
 
 	.footer-credits{

@@ -66,6 +66,10 @@ h1{
  *
  */
 
+.deck-container{
+	align-items: center;
+}
+
 .deck{
 	position: relative;
 	width: 70vw;
@@ -144,6 +148,45 @@ h1{
 .score-panel .restart{
  	float: right;
  	cursor: pointer;
+}
+
+/**
+ *
+ * Reset
+ *
+ */
+
+.game-start{
+	position: absolute;
+	cursor: pointer;
+	height: 10vw;
+	width: 30vw;
+	min-width: 50px;
+	max-width: 200px;
+	min-height: 50px;
+	max-height: 100px;
+	font-size: .8em;
+ 	text-transform: uppercase;
+ 	color: #fff;
+ 	background: #1d1c6c;
+ 	border: 2px solid #92e1fc;
+ 	border-radius: 8px;
+ 	box-shadow: 0px 0px 42px 8px #92e1fc;
+}
+
+.game-start:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 0px 0px 30px 4px #92e1fc;
+  /* Lowering the shadow */
+}
+
+.game-start-show{
+	display: block;
+}
+
+.game-start-hidden{
+	display: none;
 }
 
 /**
