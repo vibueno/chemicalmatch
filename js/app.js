@@ -25,7 +25,7 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
 
-let pairOdromGame = null;
+let chemMatchGame = null;
 
 /**
  * Shuffles an array
@@ -88,15 +88,15 @@ function formatMinutes(seconds){
 	 */
 	function showNewGameButton(show){
 
-		const DOMGameStart = document.getElementsByClassName("game-start")[0];
+		const DOMGameNew = document.getElementsByClassName("game-new")[0];
 
 		if (show){
-			DOMGameStart.classList.add("game-start-show");
-		  DOMGameStart.classList.remove("game-start-hidden");
+			DOMGameNew.classList.add("show");
+		  DOMGameNew.classList.remove("hidden");
 		}
 		else{
-			DOMGameStart.classList.add("game-start-hidden");
-		  DOMGameStart.classList.remove("game-start-show");
+			DOMGameNew.classList.add("hidden");
+		  DOMGameNew.classList.remove("show");
 		}
 	}
 
@@ -143,12 +143,13 @@ Card.prototype.flipBack = function () {
  * Creates a new move counter
  * @class
  *
- * @property {Number}         moves stores the number of moves performed in the current game.
+ * @property {Number} moves   stores the number of moves performed in the current game.
  * @property {Object} DOMNode DOM object related to the counter. To spare further lookups.
  */
 let MoveCounter = function(){
 	this.moves = 0;
 	this.DOMNode = document.getElementsByClassName("moves")[0];
+	this.DOMNode.textContent = `${this.moves} Moves`;
 };
 
 /**
@@ -185,7 +186,6 @@ let Timer = function(){
  * Starts the timer
  */
 Timer.prototype.start = function(){
-
 	//We need to bind this, in order to not to lose its value due to
 	//the use of setInterval
 	this.IntervalId = setInterval(this.update.bind(this), 1000);
@@ -223,8 +223,6 @@ Timer.prototype.reset = function(){
  * @class
  *
  * @property {Number}  deckSize      number of cards of the deck.
- * @property {Object}  moveCounter   object containing the functionality of the move counter.
- * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
  * @property {Array}   cards         card objects included the deck.
  * @property {Object}  DOMNode       DOM object related to the deck. To spare further lookups.
  */
@@ -233,14 +231,13 @@ let Deck = function(deckSize){
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
+	this.cards = null;
 	this.DOMNode = document.getElementsByClassName("deck")[0];
+	this.DOMNode.innerHTML ="";
 
-	/**
-	 * The initialize method adds more properties to the Deck class.
-	 * This happens inside this method, since these properties need to be reset every time a new game starts
-	 */
-	this.initialize();
-
+	this.addCards();
+	this.shuffleCards();
+	this.setUpDOMCards();
 };
 
 /**
@@ -260,18 +257,6 @@ Deck.prototype.addCards = function(){
 		//We add the same figure twice
 		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
 	}
-};
-
-/**
- * Initializes the deck
- */
-Deck.prototype.initialize = function(){
-
-	this.DOMNode.innerHTML ="";
-
-	this.addCards();
-	this.shuffleCards();
-	this.setUpDOMCards();
 };
 
 /**
@@ -316,13 +301,25 @@ Deck.prototype.setUpDOMCards = async function () {
  * Creates a new Game
  * @class
  *
+ * @property {Object}  moveCounter   game move counter
+ * @property {Object}  timer         game timer
+ * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
+ * @property {Object}  Deck          game deck
  */
-
-let Game = function(Deck){
+let Game = function(){
 	this.moveCounter = new MoveCounter();
 	this.timer = new Timer();
 	this.roundComplete = false;
-	this.Deck = Deck;
+	this.deck = new Deck(deckSize);
+};
+
+/**
+ * Resets the game
+ */
+Game.prototype.reset = function(){
+	this.deck = new Deck(deckSize);
+	this.moveCounter.reset();
+	this.timer.reset();
 };
 
 Game.prototype.start = function(){
@@ -333,14 +330,14 @@ Game.prototype.start = function(){
  * Returns the number of cards used in the current round
  */
 Game.prototype.getCurrentRoundCount = function () {
-	return this.Deck.cards.filter(card => card.inCurrentRound === true).length;
+	return this.deck.cards.filter(card => card.inCurrentRound === true).length;
 };
 
 /**
  * Solves the current round
  */
 Game.prototype.solveRound = async function () {
-	let currentRoundCards = this.Deck.cards.filter(card => card.inCurrentRound === true);
+	let currentRoundCards = this.deck.cards.filter(card => card.inCurrentRound === true);
 
 	this.moveCounter.increment();
 
@@ -377,7 +374,7 @@ Game.prototype.solveRound = async function () {
  * Solves the game
  */
 Game.prototype.solveGame = function () {
-	let notSolvedCards = this.Deck.cards.filter(card => card.solved === false);
+	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
 		this.timer.stop();
@@ -394,11 +391,8 @@ Game.prototype.solveGame = function () {
 
  window.onload=function(){
 
- 	const DOMRestartGame = document.getElementById("restart");
- 	const DOMGameStart = document.getElementsByClassName("game-start")[0];
-
-	let pairOdromDeck = new Deck(deckSize);
-	pairOdromDeck.initialize();
+ 	const DOMGameStart = document.getElementById("newGame");
+ 	const DOMRestartGame = document.getElementById("endGame");
 
 	/*
 	 *
@@ -406,28 +400,28 @@ Game.prototype.solveGame = function () {
 	 *
 	 */
 
-	pairOdromDeck.DOMNode.addEventListener('click', function(event){
-		if (pairOdromGame.roundComplete === false && event.target.tagName==="LI"){
-			let pairOdromCard = pairOdromDeck.cards.find(card => "card"+card.id === event.target.id);
+	let chemMatchGame = new Game();
 
-			pairOdromCard.flip();
+	chemMatchGame.deck.DOMNode.addEventListener('click', function(event){
+		if (chemMatchGame.roundComplete === false && event.target.tagName==="LI"){
+			let chemMatchCard = chemMatchGame.deck.cards.find(card => "card"+card.id === event.target.id);
 
-			if (pairOdromGame.getCurrentRoundCount()===2){
-				pairOdromGame.roundComplete = true;
-				pairOdromGame.solveRound();
-				pairOdromGame.solveGame();
+			chemMatchCard.flip();
+
+			if (chemMatchGame.getCurrentRoundCount()===2){
+				chemMatchGame.roundComplete = true;
+				chemMatchGame.solveRound();
+				chemMatchGame.solveGame();
 			}
 		}
 	});
 
-	DOMGameStart.addEventListener('click', function(){
-		pairOdromGame = new Game (pairOdromDeck);
-		pairOdromGame.start();
-		showNewGameButton(false);
-	});
-
-	DOMRestartGame.addEventListener('click', function(){
-		pairOdromGame = new Game (pairOdromDeck);
+	[DOMGameStart, DOMRestartGame].forEach(item => {
+	  item.addEventListener('click', event => {
+	  	chemMatchGame.reset();
+			chemMatchGame.start();
+			showNewGameButton(false);
+	  })
 	});
 
 };

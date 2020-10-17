@@ -142,18 +142,18 @@ h1{
  	margin-bottom: 10px;
 }
 
-.score-panel .restart{
+.score-panel .end-game{
  	float: right;
  	cursor: pointer;
 }
 
 /**
  *
- * Reset
+ * New Game
  *
  */
 
-.game-start{
+.game-new{
 	position: absolute;
 	cursor: pointer;
 	height: 10vw;
@@ -171,18 +171,18 @@ h1{
  	box-shadow: 0px 0px 42px 8px #92e1fc;
 }
 
-.game-start:active {
+.game-new:active {
   transform: scale(0.98);
   /* Scaling button to 0.98 to its original size */
   box-shadow: 0px 0px 30px 4px #92e1fc;
   /* Lowering the shadow */
 }
 
-.game-start-show{
+.game-new.show{
 	display: block;
 }
 
-.game-start-hidden{
+.game-new.hidden{
 	display: none;
 }
 
