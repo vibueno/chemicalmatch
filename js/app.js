@@ -25,8 +25,6 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
 const deckSize = 16;
 
-let chemMatchGame = null;
-
 /**
  * Shuffles an array
  * @param  {[array]} array array to be shuffled.
@@ -82,23 +80,23 @@ function formatMinutes(seconds){
 	return pad(parseInt(seconds / 60));
 }
 
-	/**
-	 * Shows/Hides the button New Game
-	 * @param  {[Boolean]} show indicates whether to show or hide the button
-	 */
-	function showNewGameButton(show){
+/**
+ * Shows/Hides the button New Game
+ * @param  {[Boolean]} show indicates whether to show or hide the button
+ */
+function showNewGameButton(show){
 
-		const DOMGameNew = document.getElementsByClassName("game-new")[0];
+	const DOMGameNew = document.getElementsByClassName("game-new")[0];
 
-		if (show){
-			DOMGameNew.classList.add("show");
-		  DOMGameNew.classList.remove("hidden");
-		}
-		else{
-			DOMGameNew.classList.add("hidden");
-		  DOMGameNew.classList.remove("show");
-		}
+	if (show){
+		DOMGameNew.classList.add("show");
+	  DOMGameNew.classList.remove("hidden");
 	}
+	else{
+		DOMGameNew.classList.add("hidden");
+	  DOMGameNew.classList.remove("show");
+	}
+}
 
 /**
  * Creates a new Card
@@ -173,10 +171,11 @@ MoveCounter.prototype.increment = function(){
  * Creates a new timer
  * @class
  *
+ * @property {Number} seconds seconds passed since the timer started
+ * @property {Object} DOMNode DOM object related to the timer. To spare further lookups.
  */
 let Timer = function(){
 	//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-	this.running = false;
 	this.seconds = 0;
 	this.DOMNodeTimer = document.getElementById("timer");
 	this.DOMNodeTimer.innerHTML="00:00";
@@ -189,7 +188,6 @@ Timer.prototype.start = function(){
 	//We need to bind this, in order to not to lose its value due to
 	//the use of setInterval
 	this.IntervalId = setInterval(this.update.bind(this), 1000);
-	this.running = true;
 };
 
 /**
@@ -197,7 +195,6 @@ Timer.prototype.start = function(){
  */
 Timer.prototype.stop = function(){
 	clearInterval(this.IntervalId);
-	this.running = false;
 };
 
 /**
@@ -304,13 +301,15 @@ Deck.prototype.setUpDOMCards = async function () {
  * @property {Object}  moveCounter   game move counter
  * @property {Object}  timer         game timer
  * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
- * @property {Object}  Deck          game deck
+ * @property {Object}  deck          game deck
+ * @property {Boolean} started       tells whether the game is on-going
  */
 let Game = function(){
 	this.moveCounter = new MoveCounter();
 	this.timer = new Timer();
 	this.roundComplete = false;
 	this.deck = new Deck(deckSize);
+	this.started=false;
 };
 
 /**
@@ -320,9 +319,11 @@ Game.prototype.reset = function(){
 	this.deck = new Deck(deckSize);
 	this.moveCounter.reset();
 	this.timer.reset();
+	this.started=false;
 };
 
 Game.prototype.start = function(){
+	this.started=true;
 	this.timer.start();
 };
 
@@ -373,7 +374,7 @@ Game.prototype.solveRound = async function () {
 /**
  * Solves the game
  */
-Game.prototype.solveGame = function () {
+Game.prototype.solve = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
@@ -403,7 +404,9 @@ Game.prototype.solveGame = function () {
 	let chemMatchGame = new Game();
 
 	chemMatchGame.deck.DOMNode.addEventListener('click', function(event){
-		if (chemMatchGame.roundComplete === false && event.target.tagName==="LI"){
+		if (chemMatchGame.started === true &&
+			  chemMatchGame.roundComplete === false &&
+			  event.target.tagName==="LI"){
 			let chemMatchCard = chemMatchGame.deck.cards.find(card => "card"+card.id === event.target.id);
 
 			chemMatchCard.flip();
@@ -411,7 +414,7 @@ Game.prototype.solveGame = function () {
 			if (chemMatchGame.getCurrentRoundCount()===2){
 				chemMatchGame.roundComplete = true;
 				chemMatchGame.solveRound();
-				chemMatchGame.solveGame();
+				chemMatchGame.solve();
 			}
 		}
 	});
@@ -421,7 +424,7 @@ Game.prototype.solveGame = function () {
 	  	chemMatchGame.reset();
 			chemMatchGame.start();
 			showNewGameButton(false);
-	  })
+	  });
 	});
 
 };
