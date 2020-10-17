@@ -124,7 +124,7 @@ let Card = function(id, figure){
 Card.prototype.flip = function () {
 
 	if (this.solved===false){
-		this.DOMNode.classList.add("open", "show");
+		this.DOMNode.classList.add("flipped");
 		this.inCurrentRound = true;
 	}
 };
@@ -134,7 +134,7 @@ Card.prototype.flip = function () {
  */
 Card.prototype.flipBack = function () {
 	if (this.solved===false){
-		this.DOMNode.classList.remove ("open", "show");
+		this.DOMNode.classList.remove ("flipped");
 		this.inCurrentRound = false;
 	}
 };

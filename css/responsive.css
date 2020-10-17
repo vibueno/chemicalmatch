@@ -13,10 +13,27 @@
 		font-size: 1.1em;
 	}
 
+	.deck .card.flipped{
+	 	font-size: 1.8em;
+	}
+
 	.footer-credits{
   	font-size: 0.75em;
 	}
 }
+
+/**
+ *
+ * Size increase
+ *
+ */
+
+@media screen and (min-width:400px){
+	.deck .card.flipped{
+	 	font-size: 2.25em;
+	}
+}
+
 /**
  *
  * Size increase
@@ -24,7 +41,6 @@
  */
 
 @media screen and (min-width:500px){
-
 	h1{
 	  font-size: 2.8em;
 	}
@@ -38,8 +54,9 @@
 	 	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 	}
 
-	.deck .card.open{
+	.deck .card.flipped{
  		border: 4px solid #92e1fc;
+ 		font-size: 2.5em;
 	}
 
 	.game-start{
@@ -57,9 +74,25 @@
  *
  */
 
+@media screen and (min-width:600px){
+	.deck .card.flipped{
+	 	font-size: 3.5em;
+	}
+}
+
+/**
+ *
+ * Size increase
+ *
+ */
+
 @media screen and (min-width:800px){
 	h1{
 	  font-size: 4em;
+	}
+
+	.deck .card.flipped{
+	 	font-size: 5em;
 	}
 
 	.game-start{
@@ -69,7 +102,6 @@
 	.footer-credits{
   	font-size: 1em;
 	}
-
 }
 
 /**

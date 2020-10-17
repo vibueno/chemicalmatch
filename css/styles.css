@@ -109,17 +109,14 @@ h1{
  	background: linear-gradient(0.25turn, #340b69, #c140d3);
 }
 
-.deck .card.open{
+.deck .card.flipped{
 	position: relative;
  	transform: rotateY(0);
  	background: #ead5ff;
  	cursor: default;
  	border: 2px solid #92e1fc;
+ 	font-size: 1.3em;
 }
-
-.deck .card.show{
- 	font-size: 6vw;
- }
 
 .deck .card.matchtrans{
 	/* Somehow this animation does not work if you change the order of the transformations
