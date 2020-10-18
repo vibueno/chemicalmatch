@@ -22,7 +22,8 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-brain", "fa-camera-retro", "fa-carrot", "fa-moon", "fa-hand-spock",
                      "fa-frog", "fa-ghost", "fa-hiking", "fa-helicopter", "fa-hat-wizard",
                      "fa-hotdog", "fa-dog", "fa-life-ring", "fa-chess-rook", "fa-piggy-bank",
-                     "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut"];
+                     "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut",
+                     "fa-snowplow", "fa-user-injured"];
 const deckSize = 16;
 
 /**
@@ -180,7 +181,7 @@ Card.prototype.flipBack = function () {
 let MoveCounter = function(){
 	this.moves = 0;
 	this.DOMNode = document.getElementById("moves");
-	this.DOMNode.textContent = `${this.moves} Moves`;
+	this.setDOMValue();
 };
 
 /**
@@ -188,7 +189,7 @@ let MoveCounter = function(){
  */
 MoveCounter.prototype.reset = function(){
 	this.moves = 0;
-	this.DOMNode.textContent = `${this.moves} Moves`;
+	this.setDOMValue();
 };
 
 /**
@@ -196,8 +197,14 @@ MoveCounter.prototype.reset = function(){
  */
 MoveCounter.prototype.increment = function(){
 	this.moves++;
-	let movesText = (this.moves === 1 ? "Move" : "Moves");
-	this.DOMNode.textContent = `${this.moves} ${movesText}`;
+	this.setDOMValue();
+};
+
+/**
+ * Sets moves value in the DOM
+ */
+MoveCounter.prototype.setDOMValue = function(){
+	this.DOMNode.textContent = `Moves: ${this.moves}`;
 };
 
 /**
@@ -211,7 +218,7 @@ let Timer = function(){
 	//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
 	this.seconds = 0;
 	this.DOMNodeTimer = document.getElementById("timer");
-	this.DOMNodeTimer.innerHTML="00:00";
+  this.setDOMValue(this.seconds);
 };
 
 /**
@@ -235,7 +242,7 @@ Timer.prototype.stop = function(){
  */
 Timer.prototype.update = function(){
   this.seconds++;
-  this.DOMNodeTimer.innerHTML = `${formatMinutes(this.seconds)}:${formatSeconds(this.seconds)}`;
+  this.setDOMValue(this.seconds);
 };
 
 /**
@@ -244,8 +251,14 @@ Timer.prototype.update = function(){
 Timer.prototype.reset = function(){
 	this.stop();
   this.seconds = 0;
-  this.minutes = 0;
-  this.DOMNodeTimer.innerHTML = "00:00";
+  this.setDOMValue(this.seconds);
+};
+
+/**
+ * Sets timer value in the DOM
+ */
+Timer.prototype.setDOMValue = function(seconds){
+	this.DOMNodeTimer.innerHTML = `Time: ${formatMinutes(seconds)}:${formatSeconds(seconds)}`;
 };
 
 /**

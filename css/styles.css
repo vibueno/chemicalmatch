@@ -50,14 +50,107 @@ footer{
 	src: url("../fonts/library3am.woff") format("woff");
 }
 
+header{
+	width: 100%;
+	margin: 5vh auto 4.5vh auto;
+}
+
 h1{
   font-family:"Library3AM";
-  font-size: 1.4em;
-  width: 100%;
-	margin: 0.5em auto 0.3em auto;
+  font-size: 7vw;
 	text-transform: uppercase;
 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
   color: #ead5ff;
+  padding: 0;
+  margin: 0;
+}
+
+
+/*
+ *
+ * Score Panel
+ *
+ */
+
+.top-container{
+	font-family:"Library3AM";
+	width: 70vw;
+	max-width: 95vmin;
+	flex-direction: row;
+	margin: 1vmin;
+	padding: 0 1em 0 1em;
+	color: #fff;
+}
+
+.score-panel{
+	align-items: flex-start;
+ 	width: 65%;
+ 	font-size: 3.75vmin;
+ 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
+}
+
+/**
+ *
+ * New Game
+ *
+ */
+
+.game-new{
+	position: absolute;
+	cursor: pointer;
+	height: 10vw;
+	width: 30vw;
+	min-width: 50px;
+	max-width: 200px;
+	min-height: 50px;
+	max-height: 100px;
+	font-family:"Library3AM";
+	font-size: .7em;
+	font-weight: bold;
+ 	text-transform: uppercase;
+ 	background: #1d1c6c;
+ 	border: 2px solid #92e1fc;
+ 	border-radius: 8px;
+ 	box-shadow: 0px 0px 42px 8px #92e1fc;
+ 	color: #fff;
+}
+
+.game-new:active {
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 0px 0px 30px 4px #92e1fc;
+  /* Lowering the shadow */
+}
+
+.game-new.show{
+	display: block;
+}
+
+.game-new.hidden{
+	display: none;
+}
+
+/**
+ *
+ * Restart Game
+ *
+ */
+
+.restart-game{
+	width: 35%;
+	font-size: 4.75vmin;
+	color: #ffc8fc;
+	cursor: pointer;
+	align-items: flex-end;
+	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
+}
+
+#restartGame.show{
+	display: block;
+}
+
+#restartGame.hidden{
+	display: none;
 }
 
 /*
@@ -128,80 +221,6 @@ h1{
 
 .deck .card.open.match{
  	cursor: default;
-}
-
-/*
- *
- * Score Panel
- *
- */
-
-.score-panel{
- 	text-align: left;
- 	min-width : 100%;
- 	margin-bottom: 10px;
-}
-
-.score-panel .end-game{
- 	float: right;
- 	cursor: pointer;
-}
-
-/**
- *
- * New Game
- *
- */
-
-.game-new{
-	position: absolute;
-	cursor: pointer;
-	height: 10vw;
-	width: 30vw;
-	min-width: 50px;
-	max-width: 200px;
-	min-height: 50px;
-	max-height: 100px;
-	font-size: .8em;
- 	text-transform: uppercase;
- 	color: #fff;
- 	background: #1d1c6c;
- 	border: 2px solid #92e1fc;
- 	border-radius: 8px;
- 	box-shadow: 0px 0px 42px 8px #92e1fc;
-}
-
-.game-new:active {
-  transform: scale(0.98);
-  /* Scaling button to 0.98 to its original size */
-  box-shadow: 0px 0px 30px 4px #92e1fc;
-  /* Lowering the shadow */
-}
-
-.game-new.show{
-	display: block;
-}
-
-.game-new.hidden{
-	display: none;
-}
-
-/**
- *
- * Restart Game
- *
- */
-
-.restart-game{
-	cursor: pointer;
-}
-
-#restartGame.show{
-	display: block;
-}
-
-#restartGame.hidden{
-	display: none;
 }
 
 /**
