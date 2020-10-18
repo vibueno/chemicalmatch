@@ -6,7 +6,7 @@
 
 /**
  * The size of the array cardFigures does not really matter, as long as its length equals at least
- * half the of the deck size.
+ * half of the deck size.
  *
  * If the number of card figures in cardFigures exceeds half of the deck size, the programm will choose
  * the correct amount of figures randomly
@@ -86,7 +86,7 @@ function formatMinutes(seconds){
  */
 function showNewGameButton(show){
 
-	const DOMGameNew = document.getElementsByClassName("game-new")[0];
+	const DOMGameNew = document.getElementById("newGame");
 
 	if (show){
 		DOMGameNew.classList.add("show");
@@ -146,7 +146,7 @@ Card.prototype.flipBack = function () {
  */
 let MoveCounter = function(){
 	this.moves = 0;
-	this.DOMNode = document.getElementsByClassName("moves")[0];
+	this.DOMNode = document.getElementById("moves");
 	this.DOMNode.textContent = `${this.moves} Moves`;
 };
 
@@ -228,7 +228,7 @@ let Deck = function(deckSize){
 	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
-	this.cards = null;
+	this.cards = [];
 	this.DOMNode = document.getElementsByClassName("deck")[0];
 	this.DOMNode.innerHTML ="";
 
@@ -249,7 +249,6 @@ Deck.prototype.addCards = function(){
 	shuffle (cardFigures);
 
 	//Adding array of cards
-	this.cards = [];
 	for (let i=0;i<=(deckSize)-1;i++){
 		//We add the same figure twice
 		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
@@ -322,15 +321,26 @@ Game.prototype.reset = function(){
 	this.started=false;
 };
 
+/**
+ * Starts the game
+ */
 Game.prototype.start = function(){
 	this.started=true;
 	this.timer.start();
 };
 
 /**
+ * Ends the game
+ */
+Game.prototype.end = function(){
+	this.started=false;
+	this.timer.stop();
+};
+
+/**
  * Returns the number of cards used in the current round
  */
-Game.prototype.getCurrentRoundCount = function () {
+Game.prototype.getCurrentRoundCardCount = function () {
 	return this.deck.cards.filter(card => card.inCurrentRound === true).length;
 };
 
@@ -378,7 +388,7 @@ Game.prototype.solve = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
-		this.timer.stop();
+		this.end();
 		showNewGameButton(true);
 		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves, ${formatMinutes(this.timer.seconds)} minute(s) and ${formatSeconds(this.timer.seconds)} seconds`);
 	}
@@ -393,7 +403,7 @@ Game.prototype.solve = function () {
  window.onload=function(){
 
  	const DOMGameStart = document.getElementById("newGame");
- 	const DOMRestartGame = document.getElementById("endGame");
+ 	const DOMGameRestart = document.getElementById("endGame");
 
 	/*
 	 *
@@ -411,7 +421,7 @@ Game.prototype.solve = function () {
 
 			chemMatchCard.flip();
 
-			if (chemMatchGame.getCurrentRoundCount()===2){
+			if (chemMatchGame.getCurrentRoundCardCount()===2){
 				chemMatchGame.roundComplete = true;
 				chemMatchGame.solveRound();
 				chemMatchGame.solve();
@@ -419,12 +429,12 @@ Game.prototype.solve = function () {
 		}
 	});
 
-	[DOMGameStart, DOMRestartGame].forEach(item => {
+	[DOMGameStart, DOMGameRestart].forEach(item => {
 	  item.addEventListener('click', event => {
+	  	chemMatchGame.end();
 	  	chemMatchGame.reset();
 			chemMatchGame.start();
 			showNewGameButton(false);
 	  });
 	});
-
 };
