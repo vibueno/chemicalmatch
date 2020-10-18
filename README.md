@@ -2,21 +2,19 @@
 
 ## Table of Contents
 - [Description](#description)
-- [Libraries](#libraries)
+- [Live](#live)
 - [Design](#design)
 - [Programming](#programming)
+- [Libraries](#libraries)
 - [Improvements](#improvements)
+- [Tests](#tests)
 - [Validations](#validations)
 
 ## Description
 This project was developed within the frame of the Front End Developer Nanodegree program at Udacity.
 
 ## Live
-
 For a live version of Chemical Match, visit [GitHub Pages](https://vibueno.github.io/chemicalmatch).
-
-## Libraries
-No libraries have been used for this project. Only vanilla JS.
 
 ## Design
 * Mobile first
@@ -26,8 +24,15 @@ No libraries have been used for this project. Only vanilla JS.
 * Event Delegation
 * JS Promises
 
+## Libraries
+No libraries have been used for this project. Only vanilla JS.
+
 ## Improvements
 * High scores
+
+## Tests
+* Desktop computer + Developer Tools
+* Uniherz Jelly Pro
 
 ## Validations
 * [HTML (W3C)](https://validator.w3.org)
