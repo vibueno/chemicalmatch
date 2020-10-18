@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Libraries](#libraries)
+- [Design](#design)
 - [Programming](#programming)
 - [Improvements](#improvements)
 - [Validations](#validations)
@@ -16,6 +17,9 @@ For a live version of Chemical Match, visit [GitHub Pages](https://vibueno.githu
 
 ## Libraries
 No libraries have been used for this project. Only vanilla JS.
+
+## Design
+* Mobile first
 
 ## Programming
 * Pseudoclassical pattern

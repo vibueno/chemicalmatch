@@ -45,6 +45,12 @@ let shuffle = function (array){
 };
 
 /**
+ *
+ * Functions
+ *
+ */
+
+/**
  * Pauses execution
  * @param  {[Number]} ms amount of miliseconds.
  */
@@ -133,14 +139,14 @@ function manageButtonsVisibility(gameStarted){
 }
 
 /**
- * Creates a new Card
+ * Creates a new Card object
  * @class
  *
  * @property {Number}  id             identifier of the card.
  * @property {String}  figure         font-awesome icon assigned to the card.
  * @property {Boolean} solved         tells whether the card has been solved.
  * @property {Boolean} inCurrentRound tells whether the card is being used in the current round.
- * @property {Object}  DOMNode        DOM object related to the card. To spare further lookups.
+ * @property {Object}  DOMNode        DOM object related to the card.
  */
 let Card = function(id, figure){
 	this.id = id;
@@ -172,11 +178,11 @@ Card.prototype.flipBack = function () {
 };
 
 /**
- * Creates a new move counter
+ * Creates a new move counter object
  * @class
  *
  * @property {Number} moves   stores the number of moves performed in the current game.
- * @property {Object} DOMNode DOM object related to the counter. To spare further lookups.
+ * @property {Object} DOMNode DOM object related to the counter.
  */
 let MoveCounter = function(){
 	this.moves = 0;
@@ -208,11 +214,11 @@ MoveCounter.prototype.setDOMValue = function(){
 };
 
 /**
- * Creates a new timer
+ * Creates a new timer object
  * @class
  *
  * @property {Number} seconds seconds passed since the timer started
- * @property {Object} DOMNode DOM object related to the timer. To spare further lookups.
+ * @property {Object} DOMNode DOM object related to the timer.
  */
 let Timer = function(){
 	//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
@@ -262,12 +268,12 @@ Timer.prototype.setDOMValue = function(seconds){
 };
 
 /**
- * Creates a new Deck
+ * Creates a new Deck object
  * @class
  *
  * @property {Number}  deckSize      number of cards of the deck.
  * @property {Array}   cards         card objects included the deck.
- * @property {Object}  DOMNode       DOM object related to the deck. To spare further lookups.
+ * @property {Object}  DOMNode       DOM object related to the deck.
  */
 let Deck = function(deckSize){
 
@@ -340,13 +346,13 @@ Deck.prototype.setUpDOMCards = async function () {
 };
 
 /**
- * Creates a new Game
+ * Creates a new Game object
  * @class
  *
  * @property {Object}  moveCounter   game move counter
  * @property {Object}  timer         game timer
  * @property {Boolean} roundComplete tells whether two cards have been flipped in the current round.
- * @property {Object}  deck          game deck
+ * @property {Object}  deck          game deck object
  * @property {Boolean} started       tells whether the game is on-going
  */
 let Game = function(){
@@ -354,7 +360,8 @@ let Game = function(){
 	this.timer = new Timer();
 	this.roundComplete = false;
 	this.deck = new Deck(deckSize);
-	this.started=false;
+	this.started = false;
+	this.modal = new Modal();
 };
 
 /**
@@ -365,6 +372,7 @@ Game.prototype.reset = function(){
 	this.moveCounter.reset();
 	this.timer.reset();
 	this.started=false;
+	this.modal.DOMNodeText.innerHTML= '';
 };
 
 /**
@@ -430,14 +438,58 @@ Game.prototype.solveRound = async function () {
 /**
  * Solves the game
  */
-Game.prototype.solve = function () {
+Game.prototype.solve = async function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
 		this.end();
+		let dialogText = `Congratulations! You solved the game
+		                  in ${this.moveCounter.moves} moves,
+		                  ${formatMinutes(this.timer.seconds)} minute(s) and
+		                  ${formatSeconds(this.timer.seconds)} seconds`;
+		this.modal.setText(dialogText);
+
+		await sleep(1000);
 		showNewGameButton(true);
-		alert (`Congratulations! You solved the game in ${this.moveCounter.moves} moves, ${formatMinutes(this.timer.seconds)} minute(s) and ${formatSeconds(this.timer.seconds)} seconds`);
+		this.modal.showModal(true);
 	}
+};
+
+/**
+ * Creates a new Modal object
+ * @class
+ *
+ * @property {Object}  DOMNode          DOM object related to the modal.
+ * @property {Object}  DOMNodeModalText DOM object related to the text of modal.
+ * @property {Object}  open             tells whether the modal is open
+ */
+let Modal = function(){
+	this.DOMNode = document.getElementById("modal");
+	this.DOMNodeText = document.getElementById("modalText");
+	this.open = false;
+};
+
+/**
+ * Show/hides the modal
+ */
+Modal.prototype.showModal = function (show){
+	if (show){
+		this.DOMNode.classList.add("show");
+	  this.DOMNode.classList.remove("hidden");
+	  this.open = true;
+	}
+	else{
+		this.DOMNode.classList.add("hidden");
+	  this.DOMNode.classList.remove("show");
+	  this.open = false;
+	}
+};
+
+/**
+ * Sets dialog text
+ */
+Modal.prototype.setText = function (text){
+	this.DOMNodeText.innerHTML = text;
 };
 
 /*
@@ -451,15 +503,17 @@ Game.prototype.solve = function () {
  	const DOMGameStart = document.getElementById("newGame");
  	const DOMGameRestart = document.getElementById("restartGame");
 
+ 	const DOMNodeModalClose = document.getElementById("modalClose");
+
+	let chemMatchGame = new Game();
+
+	manageButtonsVisibility(chemMatchGame.started);
+
 	/*
 	 *
 	 * Events
 	 *
 	 */
-
-	let chemMatchGame = new Game();
-
-	manageButtonsVisibility(chemMatchGame.started);
 
 	chemMatchGame.deck.DOMNode.addEventListener('click', function(event){
 		if (chemMatchGame.started === true &&
@@ -485,4 +539,13 @@ Game.prototype.solve = function () {
 			manageButtonsVisibility(chemMatchGame.started);
 	  });
 	});
+
+	[window, DOMNodeModalClose].forEach(item => {
+	  item.addEventListener('click', event => {
+	  	if (chemMatchGame.modal.open && event.target.id !== 'modalContent') {
+	  		chemMatchGame.modal.showModal(false);
+	  	 }
+	  });
+	 });
+
 };
