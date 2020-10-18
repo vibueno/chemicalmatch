@@ -99,6 +99,39 @@ function showNewGameButton(show){
 }
 
 /**
+ * Shows/Hides the button Restart Game
+ * @param  {[Boolean]} show indicates whether to show or hide the button
+ */
+function showRestartGameButton(show){
+
+	const DOMGameRestart = document.getElementById("restartGame");
+
+	if (show){
+		DOMGameRestart.classList.add("show");
+	  DOMGameRestart.classList.remove("hidden");
+	}
+	else{
+		DOMGameRestart.classList.add("hidden");
+	  DOMGameRestart.classList.remove("show");
+	}
+}
+
+/**
+ * Shows/Hides the Game buttons
+ * @param  {[Boolean]} gameStarted indicates whether there is an on-going game
+ */
+function manageButtonsVisibility(gameStarted){
+	if (gameStarted){
+		showNewGameButton(false);
+		showRestartGameButton(true);
+	}
+	else{
+		showNewGameButton(true);
+		showRestartGameButton(false);
+	}
+}
+
+/**
  * Creates a new Card
  * @class
  *
@@ -403,7 +436,7 @@ Game.prototype.solve = function () {
  window.onload=function(){
 
  	const DOMGameStart = document.getElementById("newGame");
- 	const DOMGameRestart = document.getElementById("endGame");
+ 	const DOMGameRestart = document.getElementById("restartGame");
 
 	/*
 	 *
@@ -412,6 +445,8 @@ Game.prototype.solve = function () {
 	 */
 
 	let chemMatchGame = new Game();
+
+	manageButtonsVisibility(chemMatchGame.started);
 
 	chemMatchGame.deck.DOMNode.addEventListener('click', function(event){
 		if (chemMatchGame.started === true &&
@@ -434,7 +469,7 @@ Game.prototype.solve = function () {
 	  	chemMatchGame.end();
 	  	chemMatchGame.reset();
 			chemMatchGame.start();
-			showNewGameButton(false);
+			manageButtonsVisibility(chemMatchGame.started);
 	  });
 	});
 };

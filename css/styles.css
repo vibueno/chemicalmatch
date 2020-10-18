@@ -188,6 +188,24 @@ h1{
 
 /**
  *
+ * Restart Game
+ *
+ */
+
+.restart-game{
+	cursor: pointer;
+}
+
+#restartGame.show{
+	display: block;
+}
+
+#restartGame.hidden{
+	display: none;
+}
+
+/**
+ *
  * Footer
  *
  */
