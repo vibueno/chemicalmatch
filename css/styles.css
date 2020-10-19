@@ -210,7 +210,7 @@ h1 {
  	background: #ead5ff;
  	cursor: default;
  	border: 2px solid #92e1fc;
- 	font-size: 1.3em;
+ 	font-size: 9vmin;
 }
 
 .deck .card.match-trans {
