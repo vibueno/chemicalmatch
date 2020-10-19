@@ -5,42 +5,42 @@
  */
 
 /**
- * The size of the array cardFigures does not really matter, as long as its length equals at least
+ * The size of the array CARD_FIGURES does not really matter, as long as its length equals at least
  * half of the deck size.
  *
- * If the number of card figures in cardFigures exceeds half of the deck size, the programm will choose
+ * If the number of card figures in CARD_FIGURES exceeds half of the deck size, the programm will choose
  * the correct amount of figures randomly
  *
  * If there are not enough figures, the deck constructor will throw an error.
  */
 
-const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
-                     "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-couch",
-                     "fa-fish", "fa-hamburger", "fa-hippo", "fa-kiwi-bird", "fa-pepper-hot",
-                     "fa-subway", "fa-swimmer", "fa-theater-masks", "fa-toilet-paper", "fa-yin-yang",
-                     "fa-toilet", "fa-ankh", "fa-bacterium", "fa-biohazard","fa-bong",
-                     "fa-brain", "fa-camera-retro", "fa-carrot", "fa-moon", "fa-hand-spock",
-                     "fa-frog", "fa-ghost", "fa-hiking", "fa-helicopter", "fa-hat-wizard",
-                     "fa-hotdog", "fa-dog", "fa-life-ring", "fa-chess-rook", "fa-piggy-bank",
-                     "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut",
-                     "fa-snowplow", "fa-user-injured", "fa-american-sign-language-interpreting", "fa-baby", "fa-bug",
-                     "fa-cannabis","fa-chess-knight","fa-chess-bishop","fa-chess-pawn","fa-chess-queen"
+const CARD_FIGURES = ['fa-cat', 'fa-bath', 'fa-crow', 'fa-anchor', 'fa-cocktail',
+                      'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-couch',
+                      'fa-fish', 'fa-hamburger', 'fa-hippo', 'fa-kiwi-bird', 'fa-pepper-hot',
+                      'fa-subway', 'fa-swimmer', 'fa-theater-masks', 'fa-toilet-paper', 'fa-yin-yang',
+                      'fa-toilet', 'fa-ankh', 'fa-bacterium', 'fa-biohazard','fa-bong',
+                      'fa-brain', 'fa-camera-retro', 'fa-carrot', 'fa-moon', 'fa-hand-spock',
+                      'fa-frog', 'fa-ghost', 'fa-hiking', 'fa-helicopter', 'fa-hat-wizard',
+                      'fa-hotdog', 'fa-dog', 'fa-life-ring', 'fa-chess-rook', 'fa-piggy-bank',
+                      'fa-poop', 'fa-quidditch', 'fa-snowman', 'fa-spider', 'fa-user-astronaut',
+                      'fa-snowplow', 'fa-user-injured', 'fa-american-sign-language-interpreting', 'fa-baby', 'fa-bug',
+                      'fa-cannabis','fa-chess-knight','fa-chess-bishop','fa-chess-pawn','fa-chess-queen'
                      ];
-const deckSize = 16;
+const DECK_SIZE = 16;
 
-const performanceComments = {"astonishing": "Seriously, how the f*** did you do that!?",
-														 "excellent": "You surely will be remembered for this performance!",
-														 "good": "Keep training you brain. You are getting there!",
-														 "OK": "You are starting to have memory leaks!",
-														 "bad": "You should start eating brocoly to improve your memory",
-														 "verybad": "Are you kidding me? Can you even remember your name?",
-														 "slow": "Did you fall asleep!?"};
+const PERF_COMMENTS = {'astonishing': 'Seriously, how the f*** did you do that!?',
+											 'excellent': 'You surely will be remembered for this performance!',
+											 'good': 'Keep training your brain. You are getting there!',
+											 'OK': 'You are starting to have memory leaks!',
+											 'bad': 'You should start eating brocoly to improve your memory',
+											 'verybad': 'Are you kidding me? Can you even remember your name?',
+											 'slow': 'Did you fall asleep!?'};
 
 /**
- * Shuffles an array
+ * @description Shuffles an array.
  * @param  {[array]} array array to be shuffled.
  */
-let shuffle = function (array){
+let shuffle = function (array) {
 
 	// Shuffle function from http://stackoverflow.com/a/2450976
 	let currentIndex = array.length, temporaryValue, randomIndex;
@@ -61,96 +61,111 @@ let shuffle = function (array){
  */
 
 /**
- * Pauses execution
- * @param  {[Number]} ms amount of miliseconds.
+ * @description Pauses execution.
+ * @param   {Number} ms amount of miliseconds.
+ *
+ * @returns {Object} Promise
  */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
- * Formats number to 00
- * @param  {[Number]} val value to be formatted.
+ * @description Formats number to 00.
+ * @param  {Number}   val value to be formatted.
+ *
+ * @returns: {String} formatted value
  */
 function pad(val) {
-  var valString = val + "";
+  var valString = val + '';
   if (valString.length < 2) {
-    return "0" + valString;
-  } else {
+    return '0' + valString;
+  }
+  else {
     return valString;
   }
 }
 
 /**
- * Returns formatted amount of seconds
- * @param  {[Number]} seconds number of seconds.
+ * @description formats amount of seconds to 00.
+ * @param  {Number} seconds number of seconds.
+ *
+ * @returns: {String} formatted seconds
  */
-function formatSeconds(seconds){
+function formatSeconds(seconds) {
 	return pad(seconds % 60);
 }
 
 /**
- * Returns formatted amount of minutes
- * @param  {[Number]} seconds number of seconds.
+ * @description formats amount of minutes to 00.
+ * @param  {Number} seconds number of seconds.
+ *
+ * @returns: {String} formatted minutes
  */
-function formatMinutes(seconds){
+function formatMinutes(seconds) {
 	return pad(parseInt(seconds / 60));
 }
 
 /**
- * Shows/Hides the button New Game
- * @param  {[Boolean]} show indicates whether to show or hide the button
+ * @description Shows/Hides the button New Game.
+ *
+ * @param  {Boolean} show indicates whether to show or hide the button.
  */
-function showNewGameButton(show){
+function showNewGameButton(show) {
 
-	const DOMGameNew = document.getElementById("newGame");
+	const DOM_GAME_NEW = document.getElementById('game-new');
 
-	if (show){
-		DOMGameNew.classList.add("show");
-	  DOMGameNew.classList.remove("hidden");
+	if (show) {
+		DOM_GAME_NEW.classList.add('show');
+	  DOM_GAME_NEW.classList.remove('hidden');
 	}
-	else{
-		DOMGameNew.classList.add("hidden");
-	  DOMGameNew.classList.remove("show");
+	else {
+		DOM_GAME_NEW.classList.add('hidden');
+	  DOM_GAME_NEW.classList.remove('show');
 	}
 }
 
 /**
- * Shows/Hides the button Restart Game
- * @param  {[Boolean]} show indicates whether to show or hide the button
+ * @description Shows/Hides the button Restart Game.
+ *
+ * @param  {Boolean} show indicates whether to show or hide the button.
  */
-function showRestartGameButton(show){
+function showRestartGameButton(show) {
 
-	const DOMGameRestart = document.getElementById("restartGame");
+	const DOM_GAME_RESTART = document.getElementById('game-restart');
 
-	if (show){
-		DOMGameRestart.classList.add("show");
-	  DOMGameRestart.classList.remove("hidden");
+	if (show) {
+		DOM_GAME_RESTART.classList.add('show');
+	  DOM_GAME_RESTART.classList.remove('hidden');
 	}
-	else{
-		DOMGameRestart.classList.add("hidden");
-	  DOMGameRestart.classList.remove("show");
+	else {
+		DOM_GAME_RESTART.classList.add('hidden');
+	  DOM_GAME_RESTART.classList.remove('show');
 	}
 }
 
 /**
- * Shows/Hides the Game buttons
- * @param  {[Boolean]} gameStarted indicates whether there is an on-going game
+ * @description Shows/Hides the Game buttons.
+ *
+ * @param  {Boolean} gameStarted indicates whether there is an on-going game.
  */
-function manageButtonsVisibility(gameStarted){
+function manageButtonsVisibility(gameStarted) {
 	if (gameStarted){
 		showNewGameButton(false);
 		showRestartGameButton(true);
 	}
-	else{
+	else {
 		showNewGameButton(true);
 		showRestartGameButton(false);
 	}
 }
 
 /**
- * Creates a new Card object
- * @class
+ * @constructor
+ * @description Creates a new Card object.
+ *
+ * @param  {Number} id identifier of the card.
+ * @param  {String} figure shown on the card.
  *
  * @property {Number}  id             identifier of the card.
  * @property {String}  figure         font-awesome icon assigned to the card.
@@ -158,7 +173,7 @@ function manageButtonsVisibility(gameStarted){
  * @property {Boolean} inCurrentRound tells whether the card is being used in the current round.
  * @property {Object}  DOMNode        DOM object related to the card.
  */
-let Card = function(id, figure){
+let Card = function(id, figure) {
 	this.id = id;
 	this.figure = figure;
 	this.solved = false;
@@ -167,132 +182,136 @@ let Card = function(id, figure){
 };
 
 /**
- * Flips the card
+ * @description Flips the card.
  */
 Card.prototype.flip = function () {
 
-	if (this.solved===false){
-		this.DOMNode.classList.add("flipped");
+	if (this.solved===false) {
+		this.DOMNode.classList.add('flipped');
 		this.inCurrentRound = true;
 	}
 };
 
 /**
- * Flips the card back
+ * @description Flips the card back.
  */
 Card.prototype.flipBack = function () {
-	if (this.solved===false){
-		this.DOMNode.classList.remove ("flipped");
+	if (this.solved===false) {
+		this.DOMNode.classList.remove ('flipped');
 		this.inCurrentRound = false;
 	}
 };
 
 /**
- * Creates a new move counter object
- * @class
+ * @constructor
+ * @description Creates a new move counter object.
  *
  * @property {Number} moves   stores the number of moves performed in the current game.
  * @property {Object} DOMNode DOM object related to the counter.
  */
-let MoveCounter = function(){
+let MoveCounter = function() {
 	this.moves = 0;
-	this.DOMNode = document.getElementById("moves");
+	this.DOMNode = document.getElementById('moves');
 	this.setDOMValue();
 };
 
 /**
- * Resets the counter
+ * @description Resets the counter.
  */
-MoveCounter.prototype.reset = function(){
+MoveCounter.prototype.reset = function() {
 	this.moves = 0;
 	this.setDOMValue();
 };
 
 /**
- * Increments the counter
+ * @description Increments the counter.
  */
-MoveCounter.prototype.increment = function(){
+MoveCounter.prototype.increment = function() {
 	this.moves++;
 	this.setDOMValue();
 };
 
 /**
- * Sets moves value in the DOM
+ * @description Sets moves value in the DOM.
  */
-MoveCounter.prototype.setDOMValue = function(){
+MoveCounter.prototype.setDOMValue = function() {
 	this.DOMNode.textContent = `Moves: ${this.moves}`;
 };
 
 /**
- * Creates a new timer object
- * @class
+ * @constructor
+ * @description Creates a new timer object.
  *
  * @property {Number} seconds seconds passed since the timer started
  * @property {Object} DOMNode DOM object related to the timer.
  */
-let Timer = function(){
+let Timer = function() {
 	//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
 	this.seconds = 0;
-	this.DOMNodeTimer = document.getElementById("timer");
+	this.DOMNodeTimer = document.getElementById('timer');
   this.setDOMValue(this.seconds);
 };
 
 /**
- * Starts the timer
+ * @description Starts the timer.
  */
-Timer.prototype.start = function(){
+Timer.prototype.start = function() {
 	//We need to bind this, in order to not to lose its value due to
 	//the use of setInterval
-	this.IntervalId = setInterval(this.update.bind(this), 1000);
+	this.intervalId = setInterval(this.update.bind(this), 1000);
 };
 
 /**
- * Stops the timer
+ * @description Stops the timer.
  */
-Timer.prototype.stop = function(){
-	clearInterval(this.IntervalId);
+Timer.prototype.stop = function() {
+	clearInterval(this.intervalId);
 };
 
 /**
- * Updates the timer
+ * @description Updates the timer.
  */
-Timer.prototype.update = function(){
+Timer.prototype.update = function() {
   this.seconds++;
   this.setDOMValue(this.seconds);
 };
 
 /**
- * Resets the timer
+ * @description Resets the timer.
  */
-Timer.prototype.reset = function(){
+Timer.prototype.reset = function() {
 	this.stop();
   this.seconds = 0;
   this.setDOMValue(this.seconds);
 };
 
 /**
- * Sets timer value in the DOM
+ * @description Sets timer value in the DOM.
+ *
+ * @param {Number} seconds amount of seconds the game has been played.
  */
-Timer.prototype.setDOMValue = function(seconds){
+Timer.prototype.setDOMValue = function(seconds) {
 	this.DOMNodeTimer.innerHTML = `Time: ${formatMinutes(seconds)}:${formatSeconds(seconds)}`;
 };
 
 /**
- * Creates a new Deck object
- * @class
+ * @constructor
+ * @description Creates a new Deck object
+ *
+ * @param {Number}     deckSize      number of cards of the deck.
  *
  * @property {Number}  deckSize      number of cards of the deck.
  * @property {Array}   cards         card objects included the deck.
  * @property {Object}  DOMNode       DOM object related to the deck.
  */
-let Deck = function(deckSize){
+let Deck = function(deckSize) {
 
-	if (deckSize / 2 > cardFigures.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
+	if (deckSize / 2 > CARD_FIGURES.length) throw `There are not enough figures for a deck of size ${deckSize}.`;
 
 	this.deckSize = deckSize;
 	this.cards = [];
-	this.DOMNode = document.getElementsByClassName("deck")[0];
-	this.DOMNode.innerHTML ="";
+	this.DOMNode = document.getElementsByClassName('deck')[0];
+	this.DOMNode.innerHTML ='';
 
 	this.addCards();
 	this.shuffleCards();
@@ -300,55 +319,57 @@ let Deck = function(deckSize){
 };
 
 /**
- * Adds cards to the deck
+ * @description Adds cards to the deck.
  */
-Deck.prototype.addCards = function(){
+Deck.prototype.addCards = function() {
 
 	/**
 	 * In case there are more figures than needed, this shuffle call makes the game more insteresting
 	 * since every time the figures shown will be different
 	 */
-	shuffle (cardFigures);
+	shuffle (CARD_FIGURES);
 
 	//Adding array of cards
-	for (let i=0;i<=(deckSize)-1;i++){
+	for (let i=0;i<=(this.deckSize)-1;i++) {
 		//We add the same figure twice
-		this.cards[i] = new Card(i, cardFigures[Math.floor(i/2)]);
+		this.cards[i] = new Card(i, CARD_FIGURES[Math.floor(i/2)]);
 	}
 };
 
 /**
- * Shuffles the cards in the deck
+ * @description Shuffles the cards in the deck.
  */
 Deck.prototype.shuffleCards = function () {
 	shuffle(this.cards);
 };
 
 /**
- * Adds cards to the DOM
+ * @description Adds cards to the DOM.
+ *
+ * @returns {Object} Promise
  */
 Deck.prototype.addCardstoDOM = function () {
 
 	return new Promise((resolve) => {
 		this.cards.forEach(card => {
-			let cardHTML = `<li id="card${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
+			let cardHTML = `<li id="card-${card.id}" class="card"><i class="fas ${card.figure}"></i></li>`;
 			this.DOMNode.innerHTML += cardHTML;
 		});
-		resolve("Cards added");
+		resolve('Cards added');
 	});
 };
 
 /**
- * Adds DOM Nodes to the cards
+ * @description Adds DOM Nodes to the cards.
  */
 Deck.prototype.addDOMNodetoCards = function () {
 	this.cards.forEach(card => {
-		card.DOMNode = document.getElementById(`card${card.id}`);
+		card.DOMNode = document.getElementById(`card-${card.id}`);
 	});
 };
 
 /**
- * Sets up everything between the cards and the DOM
+ * @description Sets up everything between the cards and the DOM.
  */
 Deck.prototype.setUpDOMCards = async function () {
 	await this.addCardstoDOM();
@@ -365,49 +386,51 @@ Deck.prototype.setUpDOMCards = async function () {
  * @property {Object}  deck          game deck object
  * @property {Boolean} started       tells whether the game is on-going
  */
-let Game = function(){
+let Game = function() {
 	this.moveCounter = new MoveCounter();
 	this.timer = new Timer();
 	this.roundComplete = false;
-	this.deck = new Deck(deckSize);
+	this.deck = new Deck(DECK_SIZE);
 	this.started = false;
 };
 
 /**
- * Resets the game
+ * @description Resets the game.
  */
-Game.prototype.reset = function(){
-	this.deck = new Deck(deckSize);
+Game.prototype.reset = function() {
+	this.deck = new Deck(DECK_SIZE);
 	this.moveCounter.reset();
 	this.timer.reset();
 	this.started=false;
 };
 
 /**
- * Starts the game
+ * @description Starts the game.
  */
-Game.prototype.start = function(){
+Game.prototype.start = function() {
 	this.started=true;
 	this.timer.start();
 };
 
 /**
- * Ends the game
+ * @description Ends the game.
  */
-Game.prototype.end = function(){
+Game.prototype.end = function() {
 	this.started=false;
 	this.timer.stop();
 };
 
 /**
- * Returns the number of cards included in the current round
+ * @description Counts the number of cards included in the current round.
+ *
+ * @returns: {Number} number of cards included in the current round.
  */
 Game.prototype.getCurrentRoundCardCount = function () {
 	return this.deck.cards.filter(card => card.inCurrentRound === true).length;
 };
 
 /**
- * Solves the current round
+ * @description Solves the current round.
  */
 Game.prototype.solveRound = async function () {
 	let currentRoundCards = this.deck.cards.filter(card => card.inCurrentRound === true);
@@ -415,18 +438,18 @@ Game.prototype.solveRound = async function () {
 	this.moveCounter.increment();
 
 	//If there is a match
-	if (currentRoundCards[0].figure === currentRoundCards[1].figure){
+	if (currentRoundCards[0].figure === currentRoundCards[1].figure) {
 
 		currentRoundCards.forEach(function(card){
 			card.solved=true;
-			card.DOMNode.classList.add("matchtrans");
+			card.DOMNode.classList.add('match-trans');
 		});
 
 		await sleep(1500);
 
-		currentRoundCards.forEach(function(card){
-			card.DOMNode.classList.remove("matchtrans");
-			card.DOMNode.classList.add("match");
+		currentRoundCards.forEach(function(card) {
+			card.DOMNode.classList.remove('match-trans');
+			card.DOMNode.classList.add('match');
 		});
 
 	}
@@ -444,7 +467,9 @@ Game.prototype.solveRound = async function () {
 };
 
 /**
- * returns whether the game has been solved
+ * @description Tells whether the game has been solved.
+ *
+ * @returns: {Boolean}
  */
 Game.prototype.isSolved = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
@@ -459,61 +484,69 @@ Game.prototype.isSolved = function () {
 };
 
 /**
- * Returns a comment based on game performance
+ * @description Returns a comment based on game performance.
+ *
+ * @returns: {String} Performance comment.
  */
 Game.prototype.getPerformanceComment = function () {
-	if (this.timer.seconds > 60) return performanceComments.slow;
-	if (this.moveCounter.moves<11) return performanceComments.astonishing;
-	if (this.moveCounter.moves<13) return performanceComments.excellent;
-	if (this.moveCounter.moves<15) return performanceComments.good;
-	if (this.moveCounter.moves<17) return performanceComments.OK;
-	if (this.moveCounter.moves<19) return performanceComments.bad;
-	if (this.moveCounter.moves>=19) return performanceComments.verybad;
+	if (this.timer.seconds > 60) return PERF_COMMENTS.slow;
+	if (this.moveCounter.moves<11) return PERF_COMMENTS.astonishing;
+	if (this.moveCounter.moves<13) return PERF_COMMENTS.excellent;
+	if (this.moveCounter.moves<15) return PERF_COMMENTS.good;
+	if (this.moveCounter.moves<17) return PERF_COMMENTS.OK;
+	if (this.moveCounter.moves<19) return PERF_COMMENTS.bad;
+	if (this.moveCounter.moves>=19) return PERF_COMMENTS.verybad;
 };
 
 /**
- * Creates a new Modal object
- * @class
+ * @constructor
+ * @description Creates a new Modal object
  *
  * @property {Object}  DOMNode          DOM object related to the modal.
  * @property {Object}  DOMNodeModalText DOM object related to the modal text.
  * @property {Object}  DOMNodeClose DOM object related to the modal close button.
- * @property {Object}  open             tells whether the modal is open
+ * @property {Object}  opened           tells whether the modal is open
  */
-let Modal = function(){
-	this.DOMNode = document.getElementById("modal");
-	this.DOMNodeText = document.getElementById("modalText");
-	this.DOMNodeClose = document.getElementById("modalClose");
+let Modal = function() {
+	this.DOMNode = document.getElementById('modal');
+	this.DOMNodeText = document.getElementById('modal-text');
+	this.DOMNodeClose = document.getElementById('modal-close');
 	this.opened = false;
 };
 
 /**
- * Show/hides the modal
+ * @description Show/hides the modal.
+ *
+ * @param {Boolean} show Indicates whether to show or hide the modal.
  */
-Modal.prototype.show = function (show){
-	if (show){
-		this.DOMNode.classList.add("show");
-	  this.DOMNode.classList.remove("hidden");
+Modal.prototype.show = function (show) {
+	if (show) {
+		this.DOMNode.classList.add('show');
+	  this.DOMNode.classList.remove('hidden');
 	  this.opened = true;
 	}
-	else{
-		this.DOMNode.classList.add("hidden");
-	  this.DOMNode.classList.remove("show");
+	else {
+		this.DOMNode.classList.add('hidden');
+	  this.DOMNode.classList.remove('show');
 	  this.opened = false;
 	}
 };
 
 /**
- * Sets dialog text
+ * @description Sets dialog text.
+ *
+ * @param {String} text text to be shown on the modal.
  */
-Modal.prototype.setText = function (text){
+Modal.prototype.setText = function (text) {
 	this.DOMNodeText.innerHTML = text;
 };
 
 /**
- * Sets dialog text
+ * @description Opens the modal.
+ *
+ * @param {String} text text to be shown on the modal.
  */
-Modal.prototype.open = function (text){
+Modal.prototype.open = function (text) {
 	this.setText(text);
 	this.opened=true;
 	this.show(true);
@@ -525,10 +558,10 @@ Modal.prototype.open = function (text){
  *
  */
 
- window.onload=function(){
+ window.onload=function() {
 
- 	const DOMGameStart = document.getElementById("newGame");
- 	const DOMGameRestart = document.getElementById("restartGame");
+ 	const DOM_GAME_START = document.getElementById('game-new');
+ 	const DOM_GAME_RESTART = document.getElementById('game-restart');
 
 	let chemMatchGame = new Game();
 	window.chemMatchModal = new Modal();
@@ -542,22 +575,22 @@ Modal.prototype.open = function (text){
 	 */
 
 	/**
-	 * Click event on deck for card flipping; and round and game management;
+   * @description Click event on deck for card flipping; and round and game management.
 	 *
 	 */
 
-	chemMatchGame.deck.DOMNode.addEventListener('click', async function(event){
+	chemMatchGame.deck.DOMNode.addEventListener('click', async function(event) {
 		if (chemMatchGame.started === true &&
 			  chemMatchGame.roundComplete === false &&
-			  event.target.tagName==="LI"){
-			let chemMatchCard = chemMatchGame.deck.cards.find(card => "card"+card.id === event.target.id);
+			  event.target.tagName==='LI'){
+			let chemMatchCard = chemMatchGame.deck.cards.find(card => 'card-'+card.id === event.target.id);
 
 			chemMatchCard.flip();
 
-			if (chemMatchGame.getCurrentRoundCardCount()===2){
+			if (chemMatchGame.getCurrentRoundCardCount()===2) {
 				chemMatchGame.roundComplete = true;
 				chemMatchGame.solveRound();
-				if (chemMatchGame.isSolved()){
+				if (chemMatchGame.isSolved()) {
 					chemMatchGame.end();
 					let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
 		              ${formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
@@ -571,12 +604,13 @@ Modal.prototype.open = function (text){
 		}
 	});
 
+
 	/**
-	 * Click event on buttons New game and restart game
+   * @description Click event on buttons New game and restart game.
 	 *
 	 */
 
-	[DOMGameStart, DOMGameRestart].forEach(item => {
+	[DOM_GAME_START, DOM_GAME_RESTART].forEach(item => {
 	  item.addEventListener('click', event => {
 	  	chemMatchGame.end();
 	  	chemMatchGame.reset();
@@ -586,13 +620,13 @@ Modal.prototype.open = function (text){
 	});
 
 	/**
-	 * Click event on window and button close modal
+   * @description Click event on window and button close modal.
 	 *
 	 */
 
 	[window, window.chemMatchModal.DOMNodeClose].forEach(item => {
 	  item.addEventListener('click', event => {
-	  	if (window.chemMatchModal.opened && event.target.id !== 'modalContent') {
+	  	if (window.chemMatchModal.opened && event.target.id !== 'modal-content') {
 	  		window.chemMatchModal.show(false);
 	  	 }
 	  });

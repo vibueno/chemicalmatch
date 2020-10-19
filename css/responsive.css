@@ -4,24 +4,24 @@
  *
  */
 
-@media screen and (min-width:300px){
-	h1{
+@media screen and (min-width:300px) {
+	h1 {
 	  font-size: 7.5vw;
 	}
 
-	.score-panel{
+	.score-panel {
 	 	font-size: 4vmin;
 	}
 
-	.game-new{
-		font-size: .95em;
+	.game-new {
+		font-size: 0.95em;
 	}
 
-	.deck .card.flipped{
+	.deck .card.flipped {
 	 	font-size: 1.8em;
 	}
 
-	.footer-credits{
+	.footer-credits {
   	font-size: 0.75em;
 	}
 }
@@ -32,20 +32,20 @@
  *
  */
 
-@media screen and (min-width:400px){
+@media screen and (min-width:400px) {
 	h1{
 	  font-size: 8vw;
 	}
 
-	.score-panel{
+	.score-panel {
 	 	font-size: 3.5vmin;
 	}
 
-	.restart-game{
+	.game-restart {
 		font-size: 5vmin;
 	}
 
-	.deck .card.flipped{
+	.deck .card.flipped {
 	 	font-size: 2.25em;
 	}
 }
@@ -56,38 +56,38 @@
  *
  */
 
-@media screen and (min-width:500px){
+@media screen and (min-width:500px) {
 	h1{
 	  font-size: 8.25vw;
 	}
 
-	.score-panel{
+	.score-panel {
 	 	font-size: 4vmin;
 	}
 
-	.restart-game{
+	.game-restart {
 		font-size: 6.5vmin;
 	}
 
-	.deck{
+	.deck {
 	 	padding: 1em;
 	}
 
-	.deck .card{
+	.deck .card {
 	 	border: 4px solid #ead5ff;
 	 	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 	}
 
-	.deck .card.flipped{
+	.deck .card.flipped {
  		border: 4px solid #92e1fc;
  		font-size: 2.5em;
 	}
 
-	.game-new{
+	.game-new {
 		font-size: 1.15em;
 	}
 
-	.footer-credits{
+	.footer-credits {
   	font-size: 0.9em;
 	}
 }
@@ -98,20 +98,20 @@
  *
  */
 
-@media screen and (min-width:600px){
+@media screen and (min-width:600px) {
 	h1{
 	  font-size: 7.5vw;
 	}
 
-	.score-panel{
+	.score-panel {
 	 	font-size: 4.5vmin;
 	}
 
-	.restart-game{
+	.game-restart {
 		font-size: 7vmin;
 	}
 
-	.deck .card.flipped{
+	.deck .card.flipped {
 	 	font-size: 3.5em;
 	}
 }
@@ -122,25 +122,24 @@
  *
  */
 
-@media screen and (min-width:800px){
-
-	.score-panel{
+@media screen and (min-width:800px) {
+	.score-panel {
 	 	font-size: 5vmin;
 	}
 
-	.restart-game{
+	.game-restart {
 		font-size: 8vmin;
 	}
 
-	.deck .card.flipped{
+	.deck .card.flipped {
 	 	font-size: 5em;
 	}
 
-	.game-new{
+	.game-new {
 		font-size: 1.60em;
 	}
 
-	.footer-credits{
+	.footer-credits {
   	font-size: 1em;
 	}
 }
@@ -151,12 +150,12 @@
  *
  */
 
-@media screen and (min-width:1000px){
-	.game-new{
+@media screen and (min-width:1000px) {
+	.game-new {
 		font-size: 1.8em;
 	}
 
-	.footer-credits{
+	.footer-credits {
   	font-size: 1.2em;
 	}
 }

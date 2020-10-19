@@ -12,23 +12,23 @@
  *
  */
 
-html{
+html {
 	box-sizing: border-box;
 }
 
 *,
 *::before,
-*::after{
+*::after {
 	box-sizing: inherit;
 }
 
 html,
-body{
+body {
 	margin: 0;
 	padding: 0;
 }
 
-body{
+body {
 	background: url('../img/2924643_min.jpg') no-repeat center center fixed;
   background-size: cover;
 	min-width: 240px;
@@ -37,7 +37,7 @@ body{
 div,
 .deck,
 h1,
-footer{
+footer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -45,17 +45,17 @@ footer{
 	flex-wrap: wrap;
 }
 
-@font-face{
+@font-face {
 	font-family: "Library3AM";
 	src: url("../fonts/library3am.woff") format("woff");
 }
 
-header{
+header {
 	width: 100%;
 	margin: 5vh auto 4.5vh auto;
 }
 
-h1{
+h1 {
   font-family:"Library3AM";
   font-size: 7vw;
 	text-transform: uppercase;
@@ -72,7 +72,7 @@ h1{
  *
  */
 
-.top-container{
+.top-container {
 	font-family:"Library3AM";
 	width: 70vw;
 	max-width: 95vmin;
@@ -82,7 +82,7 @@ h1{
 	color: #fff;
 }
 
-.score-panel{
+.score-panel {
 	align-items: flex-start;
  	width: 65%;
  	font-size: 3.75vmin;
@@ -95,7 +95,7 @@ h1{
  *
  */
 
-.game-new{
+.game-new {
 	position: absolute;
 	cursor: pointer;
 	height: 10vw;
@@ -122,11 +122,11 @@ h1{
   /* Lowering the shadow */
 }
 
-.game-new.show{
+.game-new.show {
 	display: block;
 }
 
-.game-new.hidden{
+.game-new.hidden {
 	display: none;
 }
 
@@ -136,7 +136,7 @@ h1{
  *
  */
 
-.restart-game{
+.game-restart {
 	width: 35%;
 	font-size: 4.75vmin;
 	color: #ffc8fc;
@@ -145,11 +145,11 @@ h1{
 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
 }
 
-#restartGame.show{
+#game-restart.show {
 	display: block;
 }
 
-#restartGame.hidden{
+#game-restart.hidden {
 	display: none;
 }
 
@@ -159,11 +159,11 @@ h1{
  *
  */
 
-.deck-container{
+.deck-container {
 	align-items: center;
 }
 
-.deck{
+.deck {
 	position: relative;
 	width: 70vw;
 	height: 70vw;
@@ -176,10 +176,12 @@ h1{
  	padding: 2vw;
 }
 
-.deck:after{
+.deck:after {
 	position: absolute;
-  top: -3px; bottom: -3px;
-  left: -3px; right: -3px;
+  top: -3px;
+  bottom: -3px;
+  left: -3px;
+  right: -3px;
   z-index: -1;
   background: linear-gradient(0.25turn, #92e1fc, #ebf8e1, #fea2fe);
 	box-shadow: 0px 0px 42px 8px #92e1fc;
@@ -187,7 +189,7 @@ h1{
   content: '';
 }
 
-.deck .card{
+.deck .card {
  	height: 22%;
  	width: 22%;
  	margin: auto;
@@ -202,7 +204,7 @@ h1{
  	background: linear-gradient(0.25turn, #340b69, #c140d3);
 }
 
-.deck .card.flipped{
+.deck .card.flipped {
 	position: relative;
  	transform: rotateY(0);
  	background: #ead5ff;
@@ -211,7 +213,7 @@ h1{
  	font-size: 1.3em;
 }
 
-.deck .card.matchtrans{
+.deck .card.match-trans {
 	/* Somehow this animation does not work if you change the order of the transformations
    * to first scale and then rotate (?)
 	 */
@@ -219,7 +221,7 @@ h1{
 	transition-duration: .7s;
 }
 
-.deck .card.open.match{
+.deck .card.open.match {
  	cursor: default;
 }
 
@@ -229,7 +231,7 @@ h1{
  *
  */
 
-footer{
+footer {
 	position: relative;
   margin: 0.8em auto 1em auto;
   padding: 0.4em 0.4em 0.4em 0.4em;
@@ -239,35 +241,35 @@ footer{
   color: #ead5ff;
 }
 
-footer ul{
+footer ul {
   width: 100%;
   padding: 0 0 10px 0;
   margin: 0;
 }
 
-footer li{
+footer li {
   display: inline;
   margin: 0 0.5em;
   text-align: center;
 }
 
-footer a{
+footer a {
   text-decoration: none;
   color: #fff;
 }
 
-footer a:hover{
+footer a:hover {
 	color: #d230cf;
 }
 
-.footer-credits{
+.footer-credits {
  	width: 100%;
   font-size: 0.70em;
   padding: 0 0 10px 0;
   align-content: center;
 }
 
-.footer-credits-title{
+.footer-credits-title {
   font-weight: 600;
 }
 
@@ -277,7 +279,7 @@ footer a:hover{
  *
  */
 
-.modal{
+.modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -290,15 +292,15 @@ footer a:hover{
   background-color: rgba(0,0,0,0.4);
 }
 
-.modal.show{
+.modal.show {
 	display: block;
 }
 
-.modal.hidden{
+.modal.hidden {
 	display: none;
 }
 
-.modal-content{
+.modal-content {
 	display: block;
   background-color: #fefefe;
   margin: 30vh auto 0 auto;
@@ -307,7 +309,7 @@ footer a:hover{
   width: 60%;
 }
 
-.modal-close{
+.modal-close {
   color: #aaaaaa;
   top: 0;
   float: right;
@@ -316,12 +318,12 @@ footer a:hover{
 }
 
 .modal-close:hover,
-.modal-close:focus{
+.modal-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
-.modal-text{
+.modal-text {
 	margin: 30px 0 30px 20px;
 }

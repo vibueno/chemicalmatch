@@ -8,7 +8,6 @@
 - [Libraries](#libraries)
 - [Improvements](#improvements)
 - [Tests](#tests)
-- [Validations](#validations)
 
 ## Description
 This project was developed within the frame of the Front End Developer Nanodegree program at Udacity.
@@ -24,6 +23,16 @@ For a live version of Chemical Match, visit [GitHub Pages](https://vibueno.githu
 * Event Delegation
 * JS Promises
 
+### Style Guidelines
+* [HTML](https://validator.w3.org)
+* [CSS](http://udacity.github.io/frontend-nanodegree-styleguide/css.html)
+* [JavaScript](http://udacity.github.io/frontend-nanodegree-styleguide/javascript.html)
+
+### Validations
+* [HTML (W3C)](https://validator.w3.org)
+* [CSS (W3C)](https://jigsaw.w3.org/css-validator)
+* [JavaScript (JSHint)](https://jshint.com)
+
 ## Libraries
 No libraries have been used for this project. Only vanilla JS.
 
@@ -33,8 +42,3 @@ No libraries have been used for this project. Only vanilla JS.
 ## Tests
 * Desktop computer + Developer Tools
 * Uniherz Jelly Pro
-
-## Validations
-* [HTML (W3C)](https://validator.w3.org)
-* [CSS (W3C)](https://jigsaw.w3.org/css-validator)
-* [JavaScript (JSHint)](https://jshint.com)
