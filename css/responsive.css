@@ -70,8 +70,8 @@
 	}
 
 	.deck .card {
-	 	border: 4px solid #ead5ff;
 	 	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+	 	border: 4px solid #ead5ff;
 	}
 
 	.game-new {
