@@ -361,7 +361,6 @@ let Game = function(){
 	this.roundComplete = false;
 	this.deck = new Deck(deckSize);
 	this.started = false;
-	this.modal = new Modal();
 };
 
 /**
@@ -372,7 +371,6 @@ Game.prototype.reset = function(){
 	this.moveCounter.reset();
 	this.timer.reset();
 	this.started=false;
-	this.modal.DOMNodeText.innerHTML= '';
 };
 
 /**
@@ -438,20 +436,15 @@ Game.prototype.solveRound = async function () {
 /**
  * Solves the game
  */
-Game.prototype.solve = async function () {
+Game.prototype.isSolved = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
-		this.end();
-		let dialogText = `Congratulations! You solved the game
-		                  in ${this.moveCounter.moves} moves,
-		                  ${formatMinutes(this.timer.seconds)} minute(s) and
-		                  ${formatSeconds(this.timer.seconds)} seconds`;
-		this.modal.setText(dialogText);
-
-		await sleep(1000);
-		showNewGameButton(true);
-		this.modal.showModal(true);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 };
 
@@ -460,28 +453,30 @@ Game.prototype.solve = async function () {
  * @class
  *
  * @property {Object}  DOMNode          DOM object related to the modal.
- * @property {Object}  DOMNodeModalText DOM object related to the text of modal.
+ * @property {Object}  DOMNodeModalText DOM object related to the modal text.
+ * @property {Object}  DOMNodeClose DOM object related to the modal close button.
  * @property {Object}  open             tells whether the modal is open
  */
 let Modal = function(){
 	this.DOMNode = document.getElementById("modal");
 	this.DOMNodeText = document.getElementById("modalText");
-	this.open = false;
+	this.DOMNodeClose = document.getElementById("modalClose");
+	this.opened = false;
 };
 
 /**
  * Show/hides the modal
  */
-Modal.prototype.showModal = function (show){
+Modal.prototype.show = function (show){
 	if (show){
 		this.DOMNode.classList.add("show");
 	  this.DOMNode.classList.remove("hidden");
-	  this.open = true;
+	  this.opened = true;
 	}
 	else{
 		this.DOMNode.classList.add("hidden");
 	  this.DOMNode.classList.remove("show");
-	  this.open = false;
+	  this.opened = false;
 	}
 };
 
@@ -490,6 +485,15 @@ Modal.prototype.showModal = function (show){
  */
 Modal.prototype.setText = function (text){
 	this.DOMNodeText.innerHTML = text;
+};
+
+/**
+ * Sets dialog text
+ */
+Modal.prototype.open = function (text){
+	this.setText(text);
+	this.opened=true;
+	this.show(true);
 };
 
 /*
@@ -503,9 +507,8 @@ Modal.prototype.setText = function (text){
  	const DOMGameStart = document.getElementById("newGame");
  	const DOMGameRestart = document.getElementById("restartGame");
 
- 	const DOMNodeModalClose = document.getElementById("modalClose");
-
 	let chemMatchGame = new Game();
+	window.chemMatchModal = new Modal();
 
 	manageButtonsVisibility(chemMatchGame.started);
 
@@ -515,7 +518,12 @@ Modal.prototype.setText = function (text){
 	 *
 	 */
 
-	chemMatchGame.deck.DOMNode.addEventListener('click', function(event){
+	/**
+	 * Click event on deck for card flipping; and round and game management;
+	 *
+	 */
+
+	chemMatchGame.deck.DOMNode.addEventListener('click', async function(event){
 		if (chemMatchGame.started === true &&
 			  chemMatchGame.roundComplete === false &&
 			  event.target.tagName==="LI"){
@@ -526,10 +534,25 @@ Modal.prototype.setText = function (text){
 			if (chemMatchGame.getCurrentRoundCardCount()===2){
 				chemMatchGame.roundComplete = true;
 				chemMatchGame.solveRound();
-				chemMatchGame.solve();
+				if (chemMatchGame.isSolved()){
+					chemMatchGame.end();
+					let dialogText = `Congratulations! You solved the game
+		              in ${chemMatchGame.moveCounter.moves} moves,
+		              ${formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
+		              ${formatSeconds(chemMatchGame.timer.seconds)} seconds`;
+
+					await sleep(1000);
+					showNewGameButton(true);
+					window.chemMatchModal.open(dialogText);
+				}
 			}
 		}
 	});
+
+	/**
+	 * Click event on buttons New game and restart game
+	 *
+	 */
 
 	[DOMGameStart, DOMGameRestart].forEach(item => {
 	  item.addEventListener('click', event => {
@@ -540,12 +563,16 @@ Modal.prototype.setText = function (text){
 	  });
 	});
 
-	[window, DOMNodeModalClose].forEach(item => {
+	/**
+	 * Click event on window and button close modal
+	 *
+	 */
+
+	[window, window.chemMatchModal.DOMNodeClose].forEach(item => {
 	  item.addEventListener('click', event => {
-	  	if (chemMatchGame.modal.open && event.target.id !== 'modalContent') {
-	  		chemMatchGame.modal.showModal(false);
+	  	if (window.chemMatchModal.opened && event.target.id !== 'modalContent') {
+	  		window.chemMatchModal.show(false);
 	  	 }
 	  });
-	 });
-
+	});
 };
