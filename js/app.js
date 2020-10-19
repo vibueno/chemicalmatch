@@ -23,8 +23,18 @@ const cardFigures = ["fa-cat", "fa-bath", "fa-crow", "fa-anchor", "fa-cocktail",
                      "fa-frog", "fa-ghost", "fa-hiking", "fa-helicopter", "fa-hat-wizard",
                      "fa-hotdog", "fa-dog", "fa-life-ring", "fa-chess-rook", "fa-piggy-bank",
                      "fa-poop", "fa-quidditch", "fa-snowman", "fa-spider", "fa-user-astronaut",
-                     "fa-snowplow", "fa-user-injured"];
+                     "fa-snowplow", "fa-user-injured", "fa-american-sign-language-interpreting", "fa-baby", "fa-bug",
+                     "fa-cannabis","fa-chess-knight","fa-chess-bishop","fa-chess-pawn","fa-chess-queen"
+                     ];
 const deckSize = 16;
+
+const performanceComments = {"astonishing": "Seriously, how the f*** did you do that!?",
+														 "excellent": "You surely will be remembered for this performance!",
+														 "good": "Keep training you brain. You are getting there!",
+														 "OK": "You are starting to have memory leaks!",
+														 "bad": "You should start eating brocoly to improve your memory",
+														 "verybad": "Are you kidding me? Can you even remember your name?",
+														 "slow": "Did you fall asleep!?"};
 
 /**
  * Shuffles an array
@@ -390,7 +400,7 @@ Game.prototype.end = function(){
 };
 
 /**
- * Returns the number of cards used in the current round
+ * Returns the number of cards included in the current round
  */
 Game.prototype.getCurrentRoundCardCount = function () {
 	return this.deck.cards.filter(card => card.inCurrentRound === true).length;
@@ -434,7 +444,7 @@ Game.prototype.solveRound = async function () {
 };
 
 /**
- * Solves the game
+ * returns whether the game has been solved
  */
 Game.prototype.isSolved = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
@@ -446,6 +456,19 @@ Game.prototype.isSolved = function () {
 	{
 		return false;
 	}
+};
+
+/**
+ * Returns a comment based on game performance
+ */
+Game.prototype.getPerformanceComment = function () {
+	if (this.timer.seconds > 60) return performanceComments.slow;
+	if (this.moveCounter.moves<11) return performanceComments.astonishing;
+	if (this.moveCounter.moves<13) return performanceComments.excellent;
+	if (this.moveCounter.moves<15) return performanceComments.good;
+	if (this.moveCounter.moves<17) return performanceComments.OK;
+	if (this.moveCounter.moves<19) return performanceComments.bad;
+	if (this.moveCounter.moves>=19) return performanceComments.verybad;
 };
 
 /**
@@ -536,10 +559,9 @@ Modal.prototype.open = function (text){
 				chemMatchGame.solveRound();
 				if (chemMatchGame.isSolved()){
 					chemMatchGame.end();
-					let dialogText = `Congratulations! You solved the game
-		              in ${chemMatchGame.moveCounter.moves} moves,
+					let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
 		              ${formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
-		              ${formatSeconds(chemMatchGame.timer.seconds)} seconds`;
+		              ${formatSeconds(chemMatchGame.timer.seconds)} seconds: <p>${chemMatchGame.getPerformanceComment()}</p>`;
 
 					await sleep(1000);
 					showNewGameButton(true);
