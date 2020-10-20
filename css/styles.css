@@ -58,7 +58,7 @@ header {
 h1 {
 	margin: 0;
   padding: 0;
-  font-size: 7vw;
+  font-size: 8vw;
   font-family:"Library3AM";
 	text-transform: uppercase;
 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
@@ -85,7 +85,7 @@ h1 {
 .score-panel {
 	align-items: flex-start;
  	width: 65%;
- 	font-size: 3.75vmin;
+ 	font-size: 5vmin;
  	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
 }
 
@@ -108,7 +108,7 @@ h1 {
  	border-radius: 8px;
 	background: #1d1c6c;
 	cursor: pointer;
-	font-size: .7em;
+	font-size: .6em;
 	font-weight: bold;
 	font-family:"Library3AM";
 	text-transform: uppercase;
@@ -140,7 +140,7 @@ h1 {
 	align-items: flex-end;
 	width: 35%;
 	cursor: pointer;
-	font-size: 4.75vmin;
+	font-size: 7vw;
 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
 	color: #ffc8fc;
 }
@@ -234,7 +234,7 @@ h1 {
 footer {
 	position: relative;
   margin: 0.8em auto 1em auto;
-  width: 70vw;
+  width: 85vw;
 	padding: 0.4em 0.4em 0.4em 0.4em;
   text-align: center;
   color: #ead5ff;
@@ -302,20 +302,25 @@ footer a:hover {
 .modal-content {
 	display: block;
 	margin: 30vh auto 0 auto;
-	width: 60vw;
+	width: 90vw;
+	max-width: 1000px;
 	box-shadow: 0px 0px 42px 8px #92e1fc;
 	border: 2px solid #81c7de;
 	border-radius: 5px;
 	background-color: #d6edff;
-	font-size: 2vw;
+	font-size: 5vw;
   color: #1d1c6c;
+}
+
+.modal-text {
+	margin: 10% 5% 10% 5%;
 }
 
 .modal-close {
   top: 0;
   float: right;
-  margin: 1vh 1vw 0 0;
-  font-size: 2vw;
+  margin: 0 1vmin 0 0;
+  font-size: 6vw;
   font-weight: bold;
   color: #1d1c6c;
 }
@@ -325,8 +330,4 @@ footer a:hover {
 	cursor: pointer;
   text-decoration: none;
   color: #81c7de;
-}
-
-.modal-text {
-	margin: 5vh 3vw 5vh 3vw;
 }
