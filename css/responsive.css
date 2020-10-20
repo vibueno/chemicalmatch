@@ -5,14 +5,6 @@
  */
 
 @media screen and (min-width:300px) {
-	h1 {
-	  font-size: 7.5vw;
-	}
-
-	.score-panel {
-	 	font-size: 4vmin;
-	}
-
 	.game-new {
 		font-size: 0.85em;
 	}
@@ -32,23 +24,7 @@
  *
  */
 
-@media screen and (min-width:400px) {
-	h1{
-	  font-size: 8vw;
-	}
-}
-
-/**
- *
- * Size increase
- *
- */
-
 @media screen and (min-width:500px) {
-	h1{
-	  font-size: 8.25vw;
-	}
-
 	.game-restart {
 		font-size: 6.5vmin;
 	}
@@ -83,10 +59,6 @@
  */
 
 @media screen and (min-width:600px) {
-	h1{
-	  font-size: 7.5vw;
-	}
-
 	.score-panel {
 	 	font-size: 4.5vmin;
 	}
@@ -116,6 +88,10 @@
  */
 
 @media screen and (min-width:800px) {
+	h1 {
+  	font-size: 4.75em;
+	}
+
 	.score-panel {
 	 	font-size: 6vmin;
 	}
@@ -153,6 +129,10 @@
  */
 
 @media screen and (min-width:1000px) {
+	h1 {
+  	font-size: 6em;
+	}
+
 	.game-new {
 		font-size: 1.8em;
 	}
