@@ -195,10 +195,10 @@ function manageButtonsVisibility(gameStarted) {
 
 			chemMatchCard.flip();
 
-			if (chemMatchGame.getCurrentRoundCardCount()===2) {
+			if (chemMatchGame.isRoundComplete()) {
 				chemMatchGame.roundComplete = true;
-				chemMatchGame.solveRound();
-				if (chemMatchGame.isSolved()) {
+				chemMatchGame.checkRound();
+				if (chemMatchGame.isGameSolved()) {
 					chemMatchGame.end();
 					let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
 		              ${formatMinutes(chemMatchGame.timer.seconds)} minute(s) and

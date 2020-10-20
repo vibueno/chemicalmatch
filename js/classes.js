@@ -259,18 +259,19 @@ Game.prototype.end = function() {
 };
 
 /**
- * @description Counts the number of cards included in the current round.
+ * @description Tells whether the user has already clicked on 2 cards
  *
- * @returns: {Number} number of cards included in the current round.
+ * @returns: {Boolean}
  */
-Game.prototype.getCurrentRoundCardCount = function () {
-	return this.deck.cards.filter(card => card.inCurrentRound === true).length;
+Game.prototype.isRoundComplete = function () {
+	let cardsinCurrentRound = this.deck.cards.filter(card => card.inCurrentRound === true);
+	return (cardsinCurrentRound.length===2? true: false);
 };
 
 /**
- * @description Solves the current round.
+ * @description Checks the current round.
  */
-Game.prototype.solveRound = async function () {
+Game.prototype.checkRound = async function () {
 	let currentRoundCards = this.deck.cards.filter(card => card.inCurrentRound === true);
 
 	this.moveCounter.increment();
@@ -309,7 +310,7 @@ Game.prototype.solveRound = async function () {
  *
  * @returns: {Boolean}
  */
-Game.prototype.isSolved = function () {
+Game.prototype.isGameSolved = function () {
 	let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
 	if (notSolvedCards.length === 0){
