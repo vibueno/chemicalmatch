@@ -32,7 +32,7 @@ const PERF_COMMENTS = {'astonishing': 'Seriously, how the f*** did you do that!?
 											 'excellent': 'You surely will be remembered for this performance!',
 											 'good': 'Keep training your brain. You are getting there!',
 											 'OK': 'You are starting to have memory leaks!',
-											 'bad': 'You should start eating brocoly to improve your memory',
+											 'bad': 'You should start eating brocoly to improve your memory!',
 											 'verybad': 'Are you kidding me? Can you even remember your name?',
 											 'slow': 'Did you fall asleep!?'};
 
@@ -111,7 +111,7 @@ function formatMinutes(seconds) {
  *
  * @param  {Boolean} show indicates whether to show or hide the button.
  */
-function showNewGameButton(show) {
+function setNewGameBtnVisibility(show) {
 
 	const DOM_GAME_NEW = document.getElementById('game-new');
 
@@ -130,7 +130,7 @@ function showNewGameButton(show) {
  *
  * @param  {Boolean} show indicates whether to show or hide the button.
  */
-function showRestartGameButton(show) {
+function setRestartGameBtnVisibility(show) {
 
 	const DOM_GAME_RESTART = document.getElementById('game-restart');
 
@@ -149,14 +149,14 @@ function showRestartGameButton(show) {
  *
  * @param  {Boolean} gameStarted indicates whether there is an on-going game.
  */
-function manageButtonsVisibility(gameStarted) {
+function setGameBtnsVisibility(gameStarted) {
 	if (gameStarted){
-		showNewGameButton(false);
-		showRestartGameButton(true);
+		setNewGameBtnVisibility(false);
+		setRestartGameBtnVisibility(true);
 	}
 	else {
-		showNewGameButton(true);
-		showRestartGameButton(false);
+		setNewGameBtnVisibility(true);
+		setRestartGameBtnVisibility(false);
 	}
 }
 
@@ -166,21 +166,60 @@ function manageButtonsVisibility(gameStarted) {
  *
  */
 
- window.onload=function() {
-
- 	const DOM_GAME_START = document.getElementById('game-new');
- 	const DOM_GAME_RESTART = document.getElementById('game-restart');
+window.onload = function(){
 
 	let chemMatchGame = new Game();
 	window.chemMatchModal = new Modal();
 
-	manageButtonsVisibility(chemMatchGame.started);
+	setGameBtnsVisibility(chemMatchGame.started);
 
 	/*
 	 *
 	 * Events
 	 *
 	 */
+
+	/**
+   * @description Click event for buttons
+	 *
+	 */
+
+	document.addEventListener('click', function(event){
+
+		function newGame(){
+			chemMatchGame.end();
+  		chemMatchGame.reset();
+			chemMatchGame.start();
+			setGameBtnsVisibility(chemMatchGame.started);
+		}
+
+		if (event.target.id==="modal-button-yes") {
+
+			switch(window.chemMatchModal.Id) {
+		  case 'restartGame':
+		  	newGame();
+		    break;
+		  case 'endGame':
+		    break;
+			}
+
+			window.chemMatchModal.show(false);
+		}
+
+		else if (event.target.id==="modal-button-no") {
+			window.chemMatchModal.show(false);
+		}
+
+		else if (event.target.id==="game-new") {
+	  	newGame();
+		}
+		else if (event.target.id==="game-restart") {
+			chemMatchModal.open("Do you really want to restart this game?", 'question', 'restartGame');
+	  }
+	  else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
+	  	window.chemMatchModal.show(false);
+	  }
+	});
 
 	/**
    * @description Click event on deck for card flipping; and round and game management.
@@ -202,42 +241,15 @@ function manageButtonsVisibility(gameStarted) {
 					chemMatchGame.end();
 					let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
 		              ${formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
-		              ${formatSeconds(chemMatchGame.timer.seconds)} seconds.
+		              ${formatSeconds(chemMatchGame.timer.seconds)} seconds(s).
 		              <p>${chemMatchGame.getPerformanceComment()}</p>`;
 
 					await sleep(1000);
-					showNewGameButton(true);
-					window.chemMatchModal.open(dialogText);
+					setGameBtnsVisibility(false);
+					window.chemMatchModal.open(dialogText, 'info', 'endGame');
 				}
 			}
 		}
 	});
 
-
-	/**
-   * @description Click event on buttons New game and restart game.
-	 *
-	 */
-
-	[DOM_GAME_START, DOM_GAME_RESTART].forEach(item => {
-	  item.addEventListener('click', event => {
-	  	chemMatchGame.end();
-	  	chemMatchGame.reset();
-			chemMatchGame.start();
-			manageButtonsVisibility(chemMatchGame.started);
-	  });
-	});
-
-	/**
-   * @description Click event on window and button close modal.
-	 *
-	 */
-
-	[window, window.chemMatchModal.DOMNodeClose].forEach(item => {
-	  item.addEventListener('click', event => {
-	  	if (window.chemMatchModal.opened && event.target.id !== 'modal-content') {
-	  		window.chemMatchModal.show(false);
-	  	 }
-	  });
-	});
 };

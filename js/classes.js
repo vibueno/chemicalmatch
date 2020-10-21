@@ -329,12 +329,12 @@ Game.prototype.isGameSolved = function () {
  */
 Game.prototype.getPerformanceComment = function () {
 	if (this.timer.seconds > 60) return PERF_COMMENTS.slow;
-	if (this.moveCounter.moves<11) return PERF_COMMENTS.astonishing;
-	if (this.moveCounter.moves<13) return PERF_COMMENTS.excellent;
-	if (this.moveCounter.moves<15) return PERF_COMMENTS.good;
-	if (this.moveCounter.moves<17) return PERF_COMMENTS.OK;
+	if (this.moveCounter.moves<12) return PERF_COMMENTS.astonishing;
+	if (this.moveCounter.moves<14) return PERF_COMMENTS.excellent;
+	if (this.moveCounter.moves<16) return PERF_COMMENTS.good;
+	if (this.moveCounter.moves<18) return PERF_COMMENTS.OK;
 	if (this.moveCounter.moves<19) return PERF_COMMENTS.bad;
-	if (this.moveCounter.moves>=19) return PERF_COMMENTS.verybad;
+	if (this.moveCounter.moves>=20) return PERF_COMMENTS.verybad;
 };
 
 /**
@@ -343,13 +343,16 @@ Game.prototype.getPerformanceComment = function () {
  *
  * @property {Object}  DOMNode          DOM object related to the modal.
  * @property {Object}  DOMNodeModalText DOM object related to the modal text.
- * @property {Object}  DOMNodeClose DOM object related to the modal close button.
+ * @property {Object}  DOMNodeCloseBtn  DOM object related to the modal close button.
+ * @property {Object}  DOMNodeAnswerBts DOM object related to the modal answer buttons.
  * @property {Object}  opened           tells whether the modal is open
  */
 let Modal = function() {
+	this.ModalId = null;
 	this.DOMNode = document.getElementById('modal');
 	this.DOMNodeText = document.getElementById('modal-text');
 	this.DOMNodeClose = document.getElementById('modal-close');
+	this.DOMNodeButtons = document.getElementById('modal-buttons');
 	this.opened = false;
 };
 
@@ -383,9 +386,24 @@ Modal.prototype.setText = function (text) {
 /**
  * @description Opens the modal.
  *
- * @param {String} text text to be shown on the modal.
+ * @param {String} text      text to be shown on the modal.
+ * @param {String} modalType indicates the type of modal to be shown.
  */
-Modal.prototype.open = function (text) {
+Modal.prototype.open = function (text, modalType, Id) {
+
+	this.Id = Id;
+
+	switch(modalType) {
+	  case 'info':
+			this.DOMNodeButtons.classList.add('modal-buttons-hidden');
+			this.DOMNodeButtons.classList.remove('modal-buttons');
+	    break;
+	  case 'question':
+			this.DOMNodeButtons.classList.add('modal-buttons');
+			this.DOMNodeButtons.classList.remove('modal-buttons-hidden');
+	    break;
+	}
+
 	this.setText(text);
 	this.opened=true;
 	this.show(true);
