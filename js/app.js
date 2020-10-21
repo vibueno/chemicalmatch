@@ -231,11 +231,11 @@ window.onload = function(){
 		    break;
 			}
 
-			window.chemMatchModal.show(false);
+			window.chemMatchModal.close();
 		}
 
 		else if (event.target.id==="modal-button-no") {
-			window.chemMatchModal.show(false);
+			window.chemMatchModal.close();
 		}
 
 		else if (event.target.id==="game-new") {
@@ -245,7 +245,7 @@ window.onload = function(){
 			chemMatchModal.open("Do you really want to restart this game?", 'question', 'restartGame');
 	  }
 	  else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
-	  	window.chemMatchModal.show(false);
+	  	window.chemMatchModal.close();
 	  }
 	});
 

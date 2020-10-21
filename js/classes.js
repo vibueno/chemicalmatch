@@ -341,7 +341,6 @@ Game.prototype.getPerformanceComment = function () {
 
 	//Returning random comment
 	return comments[Math.floor(Math.random() * comments.length)];
-
 };
 
 /**
@@ -368,7 +367,7 @@ let Modal = function() {
  *
  * @param {Boolean} show Indicates whether to show or hide the modal.
  */
-Modal.prototype.show = function (show) {
+Modal.prototype.setVisibility = function (show) {
 	if (show) {
 		this.DOMNode.classList.add('show');
 	  this.DOMNode.classList.remove('hidden');
@@ -395,6 +394,7 @@ Modal.prototype.setText = function (text) {
  *
  * @param {String} text      text to be shown on the modal.
  * @param {String} modalType indicates the type of modal to be shown.
+ * @param {Number} Id        identifies the exact message being shown.
  */
 Modal.prototype.open = function (text, modalType, Id) {
 
@@ -413,5 +413,13 @@ Modal.prototype.open = function (text, modalType, Id) {
 
 	this.setText(text);
 	this.opened=true;
-	this.show(true);
+	this.setVisibility(true);
+};
+
+/**
+ * @description Closes the modal.
+ *
+ */
+Modal.prototype.close = function () {
+	this.setVisibility(false);
 };
