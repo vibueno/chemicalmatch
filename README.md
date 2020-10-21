@@ -10,18 +10,18 @@
 - [Tests](#tests)
 
 ## Description
-Chemical Match is a classic memory game. The game revolves around finding matching cards. This project was developed within the frame of the Front End Developer Nanodegree program at Udacity and greatly improved afterwards.
+*Chemical Match* is a classic memory game. The game revolves around finding matching cards. This project was developed within the frame of the *Front End Developer Nanodegree* program at *Udacity* and greatly improved afterwards.
 
 ![](img/gamedemo.gif)
 
 ## Live
-For a live version of Chemical Match, visit [GitHub Pages](https://vibueno.github.io/chemicalmatch).
+For a live version of *Chemical Match*, visit [GitHub Pages](https://vibueno.github.io/chemicalmatch).
 
 ## Design
 * Mobile first: the styles included in the file styles.css are optimized for a minimum width of 240px. The file responsiveness.css builds on styles.css by providing additional styles which make the site work correctly on bigger viewports.
 
 ## Programming
-* Fully responsive (starting at 240px of Unihertz Jelly Pro, as fas as I know the smallest Smartphone widely available)
+* Fully responsive (starting at 240px of *Unihertz Jelly Pro*, as fas as I know the smallest Smartphone widely available)
 * Pseudoclassical pattern
 * Event Delegation
 * JS Promises
