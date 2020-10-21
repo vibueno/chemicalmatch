@@ -242,7 +242,7 @@ window.onload = function(){
 	  	newGame();
 		}
 		else if (event.target.id==="game-restart") {
-			chemMatchModal.open("Do you really want to restart this game?", 'question', 'restartGame');
+			chemMatchModal.open("Do you really want to start a new game?", 'question', 'restartGame');
 	  }
 	  else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
 	  	window.chemMatchModal.close();
