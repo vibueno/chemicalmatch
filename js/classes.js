@@ -170,7 +170,7 @@ Deck.prototype.addCards = function() {
 	//Adding array of cards
 	for (let i=0;i<=(this.deckSize)-1;i++) {
 		//We add the same figure twice
-		this.cards[i] = new Card(i, CARD_FIGURES[Math.floor(i/2)]);
+		this.cards[i] = new Card(i, 'fa-'+CARD_FIGURES[Math.floor(i/2)]);
 	}
 };
 
@@ -328,13 +328,20 @@ Game.prototype.isGameSolved = function () {
  * @returns: {String} Performance comment.
  */
 Game.prototype.getPerformanceComment = function () {
-	if (this.timer.seconds > 60) return PERF_COMMENTS.slow;
-	if (this.moveCounter.moves<12) return PERF_COMMENTS.astonishing;
-	if (this.moveCounter.moves<14) return PERF_COMMENTS.excellent;
-	if (this.moveCounter.moves<16) return PERF_COMMENTS.good;
-	if (this.moveCounter.moves<18) return PERF_COMMENTS.OK;
-	if (this.moveCounter.moves<19) return PERF_COMMENTS.bad;
-	if (this.moveCounter.moves>=20) return PERF_COMMENTS.verybad;
+
+	let comments = '';
+
+	if (this.timer.seconds > 60) comments = PERF_COMMENTS.slow;
+	else if (this.moveCounter.moves<12) comments = PERF_COMMENTS.astonishing;
+	else if (this.moveCounter.moves<14) comments = PERF_COMMENTS.excellent;
+	else if (this.moveCounter.moves<16) comments = PERF_COMMENTS.good;
+	else if (this.moveCounter.moves<18) comments = PERF_COMMENTS.OK;
+	else if (this.moveCounter.moves<19) comments = PERF_COMMENTS.bad;
+	else if (this.moveCounter.moves>=20) comments = PERF_COMMENTS.verybad;
+
+	//Returning random comment
+	return comments[Math.floor(Math.random() * comments.length)];
+
 };
 
 /**
