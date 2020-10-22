@@ -42,6 +42,7 @@ For a live version of *Chemical Match*, visit [GitHub Pages](https://vibueno.git
 No libraries have been used for this project. Only vanilla JS.
 
 ## Improvements
+* Add Unit testing
 * High scores
 
 ## Tests
