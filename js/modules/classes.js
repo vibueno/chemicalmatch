@@ -1,4 +1,11 @@
 /**
+  * @module classes
+  */
+
+import { functions } from './functions.js';
+import { CARD_FIGURES, DECK_SIZE, PERF_COMMENTS } from './constants.js';
+
+/**
  * @constructor
  * @description Creates a new Card object.
  *
@@ -129,7 +136,7 @@ Timer.prototype.reset = function() {
  * @param {Number} seconds amount of seconds the game has been played.
  */
 Timer.prototype.setDOMValue = function(seconds) {
-	this.DOMNodeTimer.innerHTML = `Time: ${formatMinutes(seconds)}:${formatSeconds(seconds)}`;
+	this.DOMNodeTimer.innerHTML = `Time: ${functions.formatMinutes(seconds)}:${functions.formatSeconds(seconds)}`;
 };
 
 /**
@@ -165,7 +172,7 @@ Deck.prototype.addCards = function() {
 	 * In case there are more figures than needed, this shuffle call makes the game more insteresting
 	 * since every time the figures shown will be different
 	 */
-	shuffle (CARD_FIGURES);
+	functions.shuffle (CARD_FIGURES);
 
 	//Adding array of cards
 	for (let i=0;i<=(this.deckSize)-1;i++) {
@@ -178,7 +185,7 @@ Deck.prototype.addCards = function() {
  * @description Shuffles the cards in the deck.
  */
 Deck.prototype.shuffleCards = function () {
-	shuffle(this.cards);
+	functions.shuffle(this.cards);
 };
 
 /**
@@ -284,7 +291,7 @@ Game.prototype.checkRound = async function () {
 			card.DOMNode.classList.add('match-trans');
 		});
 
-		await sleep(1500);
+		await functions.sleep(1500);
 
 		currentRoundCards.forEach(function(card) {
 			card.DOMNode.classList.remove('match-trans');
@@ -294,7 +301,7 @@ Game.prototype.checkRound = async function () {
 	}
 	else
 	{
-		await sleep(700);
+		await functions.sleep(700);
 		currentRoundCards[0].flipBack();
 		currentRoundCards[1].flipBack();
 	}
@@ -423,3 +430,5 @@ Modal.prototype.open = function (text, modalType, Id) {
 Modal.prototype.close = function () {
 	this.setVisibility(false);
 };
+
+export { Deck, Game, Modal };
