@@ -78,7 +78,6 @@ window.onload = function(){
    * @description Click event for buttons
 	 *
 	 */
-
 	document.addEventListener('click', function(event){
 
 		function newGame(){
@@ -120,7 +119,6 @@ window.onload = function(){
    * @description Click event on deck for card flipping; and round and game management.
 	 *
 	 */
-
 	chemMatchGame.deck.DOMNode.addEventListener('click', async function(event) {
 		if (chemMatchGame.started === true &&
 			  chemMatchGame.roundComplete === false &&

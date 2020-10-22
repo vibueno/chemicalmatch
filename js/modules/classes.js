@@ -1,6 +1,6 @@
 /**
-  * @module classes
-  */
+ * @module classes
+ */
 
 import { functions } from './functions.js';
 import { CARD_FIGURES, DECK_SIZE, PERF_COMMENTS } from './constants.js';
@@ -168,10 +168,8 @@ let Deck = function(deckSize) {
  */
 Deck.prototype.addCards = function() {
 
-	/**
-	 * In case there are more figures than needed, this shuffle call makes the game more insteresting
-	 * since every time the figures shown will be different
-	 */
+	/* In case there are more figures than needed, this shuffle call makes the game more insteresting
+	since every time the figures shown will be different */
 	functions.shuffle (CARD_FIGURES);
 
 	//Adding array of cards
