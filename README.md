@@ -23,8 +23,9 @@ For a live version of *Chemical Match*, visit [GitHub Pages](https://vibueno.git
 ## Programming
 * Fully responsive (starting at 240px of *Unihertz Jelly Pro*, as fas as I know the smallest Smartphone widely available)
 * Pseudoclassical pattern
+* JavaScript Modules
 * Event Delegation
-* JS Promises
+* JavaScript Promises
 
 ### Style Guidelines
 * [HTML](https://validator.w3.org)
