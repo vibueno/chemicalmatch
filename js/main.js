@@ -1,5 +1,7 @@
-import { Game, Modal } from './modules/classes.js';
-import { functions } from './modules/functions.js';
+import { functions } from './functions.js';
+
+import { Game } from './components/Game.js';
+import { Modal } from './components/Modal.js';
 
 /**
  * @description Shows/Hides the button New Game.
