@@ -1,4 +1,8 @@
 /**
+ * @module Modal
+ */
+
+/**
  * @constructor
  * @description Creates a new Modal object
  *
@@ -9,12 +13,12 @@
  * @property {Object}  opened           tells whether the modal is open
  */
 let Modal = function() {
-	this.ModalId = null;
-	this.DOMNode = document.getElementById('modal');
-	this.DOMNodeText = document.getElementById('modal-text');
-	this.DOMNodeClose = document.getElementById('modal-close');
-	this.DOMNodeButtons = document.getElementById('modal-buttons');
-	this.opened = false;
+  this.ModalId = null;
+  this.DOMNode = document.getElementById('modal');
+  this.DOMNodeText = document.getElementById('modal-text');
+  this.DOMNodeClose = document.getElementById('modal-close');
+  this.DOMNodeButtons = document.getElementById('modal-buttons');
+  this.opened = false;
 };
 
 /**
@@ -23,16 +27,16 @@ let Modal = function() {
  * @param {Boolean} show Indicates whether to show or hide the modal.
  */
 Modal.prototype.setVisibility = function (show) {
-	if (show) {
-		this.DOMNode.classList.add('show');
-	  this.DOMNode.classList.remove('hidden');
-	  this.opened = true;
-	}
-	else {
-		this.DOMNode.classList.add('hidden');
-	  this.DOMNode.classList.remove('show');
-	  this.opened = false;
-	}
+  if (show) {
+    this.DOMNode.classList.add('show');
+    this.DOMNode.classList.remove('hidden');
+    this.opened = true;
+  }
+  else {
+    this.DOMNode.classList.add('hidden');
+    this.DOMNode.classList.remove('show');
+    this.opened = false;
+  }
 };
 
 /**
@@ -41,7 +45,7 @@ Modal.prototype.setVisibility = function (show) {
  * @param {String} text text to be shown on the modal.
  */
 Modal.prototype.setText = function (text) {
-	this.DOMNodeText.innerHTML = text;
+  this.DOMNodeText.innerHTML = text;
 };
 
 /**
@@ -53,22 +57,22 @@ Modal.prototype.setText = function (text) {
  */
 Modal.prototype.open = function (text, modalType, Id) {
 
-	this.Id = Id;
+  this.Id = Id;
 
-	switch(modalType) {
-	  case 'info':
-			this.DOMNodeButtons.classList.add('modal-buttons-hidden');
-			this.DOMNodeButtons.classList.remove('modal-buttons');
-	    break;
-	  case 'question':
-			this.DOMNodeButtons.classList.add('modal-buttons');
-			this.DOMNodeButtons.classList.remove('modal-buttons-hidden');
-	    break;
-	}
+  switch(modalType) {
+    case 'info':
+      this.DOMNodeButtons.classList.add('modal-buttons-hidden');
+      this.DOMNodeButtons.classList.remove('modal-buttons');
+      break;
+    case 'question':
+      this.DOMNodeButtons.classList.add('modal-buttons');
+      this.DOMNodeButtons.classList.remove('modal-buttons-hidden');
+      break;
+  }
 
-	this.setText(text);
-	this.opened=true;
-	this.setVisibility(true);
+  this.setText(text);
+  this.opened=true;
+  this.setVisibility(true);
 };
 
 /**
@@ -76,7 +80,7 @@ Modal.prototype.open = function (text, modalType, Id) {
  *
  */
 Modal.prototype.close = function () {
-	this.setVisibility(false);
+  this.setVisibility(false);
 };
 
 export { Modal };

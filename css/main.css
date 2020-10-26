@@ -13,24 +13,24 @@
  */
 
 html {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-	box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	min-width: 240px;
-	background: url('../img/neon_theater_min.jpg') no-repeat center center fixed;
+  min-width: 240px;
+  background: url('../img/neon_theater_min.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -38,30 +38,30 @@ div,
 .deck,
 h1,
 footer {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 @font-face {
-	font-family: "Library3AM";
-	src: url("../fonts/library3am.woff") format("woff");
+  font-family: "Library3AM";
+  src: url("../fonts/library3am.woff") format("woff");
 }
 
 header {
-	margin: 5vh auto 4.5vh auto;
-	width: 100%;
+  margin: 5vh auto 4.5vh auto;
+  width: 100%;
 }
 
 h1 {
-	margin: 0;
+  margin: 0;
   padding: 0;
   font-size: 9vw;
   font-family:"Library3AM";
-	text-transform: uppercase;
-	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
+  text-transform: uppercase;
+  text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
   color: #ead5ff;
 }
 
@@ -73,20 +73,20 @@ h1 {
  */
 
 .top-container {
-	flex-direction: row;
-	margin: 1vmin;
-	width: 70vw;
-	max-width: 95vmin;
-	padding: 0 1em 0 1em;
-	font-family:"Library3AM";
-	color: #fff;
+  flex-direction: row;
+  margin: 1vmin;
+  width: 70vw;
+  max-width: 95vmin;
+  padding: 0 1em 0 1em;
+  font-family:"Library3AM";
+  color: #fff;
 }
 
 .score-panel {
-	align-items: flex-start;
- 	width: 65%;
- 	font-size: 5.5vmin;
- 	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
+  align-items: flex-start;
+  width: 65%;
+  font-size: 5.5vmin;
+  text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
 }
 
 /**
@@ -96,23 +96,23 @@ h1 {
  */
 
 .game-new {
-	position: absolute;
-	width: 30vw;
-	min-width: 50px;
-	max-width: 200px;
-	height: 10vw;
-	min-height: 50px;
-	max-height: 100px;
-	box-shadow: 0px 0px 42px 8px #92e1fc;
-	border: 2px solid #92e1fc;
- 	border-radius: 8px;
-	background: #1d1c6c;
-	cursor: pointer;
-	font-size: .55em;
-	font-weight: bold;
-	font-family:"Library3AM";
-	text-transform: uppercase;
- 	color: #fff;
+  position: absolute;
+  width: 30vw;
+  min-width: 50px;
+  max-width: 200px;
+  height: 10vw;
+  min-height: 50px;
+  max-height: 100px;
+  box-shadow: 0px 0px 42px 8px #92e1fc;
+  border: 2px solid #92e1fc;
+  border-radius: 8px;
+  background: #1d1c6c;
+  cursor: pointer;
+  font-size: .55em;
+  font-weight: bold;
+  font-family:"Library3AM";
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .game-new:active {
@@ -123,11 +123,11 @@ h1 {
 }
 
 .game-new.show {
-	display: block;
+  display: block;
 }
 
 .game-new.hidden {
-	display: none;
+  display: none;
 }
 
 /**
@@ -137,20 +137,20 @@ h1 {
  */
 
 .game-restart {
-	align-items: flex-end;
-	width: 35%;
-	cursor: pointer;
-	font-size: 7vw;
-	text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
-	color: #ffc8fc;
+  align-items: flex-end;
+  width: 35%;
+  cursor: pointer;
+  font-size: 7vw;
+  text-shadow: -1px 0 #ab38c3, 0 1px #ab38c3, 1px 0 #ab38c3, 0 -1px #ab38c3;
+  color: #ffc8fc;
 }
 
 #game-restart.show {
-	display: block;
+  display: block;
 }
 
 #game-restart.hidden {
-	display: none;
+  display: none;
 }
 
 /*
@@ -160,69 +160,69 @@ h1 {
  */
 
 .deck-container {
-	align-items: center;
+  align-items: center;
 }
 
 .deck {
-	position: relative;
-	width: 70vw;
-	max-width: 95vmin;
-	height: 70vw;
-	max-height: 95vmin;
-	padding: 2vw;
- 	border: 3px solid transparent;
- 	border-radius: 16px;
- 	background: #10003e;
- 	background-clip: padding-box;
+  position: relative;
+  width: 70vw;
+  max-width: 95vmin;
+  height: 70vw;
+  max-height: 95vmin;
+  padding: 2vw;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: #10003e;
+  background-clip: padding-box;
 }
 
 .deck:after {
-	content: '';
-	position: absolute;
+  content: '';
+  position: absolute;
   z-index: -1;
   top: -3px;
   bottom: -3px;
   left: -3px;
   right: -3px;
   box-shadow: 0px 0px 42px 8px #92e1fc;
-	border-radius: 16px;
+  border-radius: 16px;
   background: linear-gradient(0.25turn, #92e1fc, #ebf8e1, #fea2fe);
 }
 
 .deck .card {
- 	margin: auto;
- 	width: 22%;
- 	height: 22%;
-	display: flex;
- 	justify-content: center;
- 	align-items: center;
- 	border: 2px solid #ead5ff;
- 	border-radius: 8px;
- 	background: linear-gradient(0.25turn, #340b69, #c140d3);
- 	cursor: pointer;
-	font-size: 0;
- 	color: #10003e;
+  margin: auto;
+  width: 22%;
+  height: 22%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ead5ff;
+  border-radius: 8px;
+  background: linear-gradient(0.25turn, #340b69, #c140d3);
+  cursor: pointer;
+  font-size: 0;
+  color: #10003e;
 }
 
 .deck .card.flipped {
-	position: relative;
- 	transform: rotateY(0);
- 	border: 2px solid #92e1fc;
- 	background: #ead5ff;
- 	cursor: default;
- 	font-size: 9vmin;
+  position: relative;
+  transform: rotateY(0);
+  border: 2px solid #92e1fc;
+  background: #ead5ff;
+  cursor: default;
+  font-size: 9vmin;
 }
 
 .deck .card.match-trans {
-	/* Somehow this animation does not work if you change the order of the transformations
+  /* Somehow this animation does not work if you change the order of the transformations
    * to first scale and then rotate (?)
-	 */
-	transform: rotateZ(+1080deg) scale(1.2);
-	transition-duration: .7s;
+   */
+  transform: rotateZ(+1080deg) scale(1.2);
+  transition-duration: .7s;
 }
 
 .deck .card.open.match {
- 	cursor: default;
+  cursor: default;
 }
 
 /**
@@ -232,10 +232,10 @@ h1 {
  */
 
 footer {
-	position: relative;
+  position: relative;
   margin: 0.8em auto 1em auto;
   width: 85vw;
-	padding: 0.4em 0.4em 0.4em 0.4em;
+  padding: 0.4em 0.4em 0.4em 0.4em;
   text-align: center;
   color: #ead5ff;
 }
@@ -258,12 +258,12 @@ footer a {
 }
 
 footer a:hover {
-	color: #d230cf;
+  color: #d230cf;
 }
 
 .footer-credits {
- 	align-content: center;
- 	width: 100%;
+  align-content: center;
+  width: 100%;
   padding: 0 0 10px 0;
   font-size: 0.70em;
 }
@@ -280,9 +280,9 @@ footer a:hover {
 
 .modal {
   position: fixed;
-	z-index: 1;
+  z-index: 1;
   top: 0;
-	left: 0;
+  left: 0;
   display: none;
   overflow: auto;
   width: 100%;
@@ -292,38 +292,38 @@ footer a:hover {
 }
 
 .modal.show {
-	display: block;
+  display: block;
 }
 
 .modal.hidden {
-	display: none;
+  display: none;
 }
 
 .modal-content {
-	display: block;
-	margin: 30vh auto 0 auto;
-	width: 90vw;
-	max-width: 1000px;
-	box-shadow: 0px 0px 42px 8px #92e1fc;
-	border: 2px solid #81c7de;
-	border-radius: 5px;
-	background-color: #d6edff;
-	font-size: 5vw;
+  display: block;
+  margin: 30vh auto 0 auto;
+  width: 90vw;
+  max-width: 1000px;
+  box-shadow: 0px 0px 42px 8px #92e1fc;
+  border: 2px solid #81c7de;
+  border-radius: 5px;
+  background-color: #d6edff;
+  font-size: 5vw;
   color: #1d1c6c;
 }
 
 .modal-buttons {
-	flex-direction: row;
-	justify-content: center;
-	margin: 0 5vw 3vh 5vw;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 5vw 3vh 5vw;
 }
 
 .modal-buttons-hidden {
-	display: none;
+  display: none;
 }
 
 .modal-text {
-	margin: 10% 5% 10% 5%;
+  margin: 10% 5% 10% 5%;
 }
 
 .modal-close {
@@ -336,24 +336,24 @@ footer a:hover {
 }
 
 .modal-button {
-	border: 2px solid #92e1fc;
- 	border-radius: 8px;
-	width: 30vw;
-	max-width: 100px;
-	height: 3em;
-	max-height: 50px;
-	background: #1d1c6c;
-	cursor: pointer;
-	font-size: .8em;
-	font-weight: bold;
-	font-family:"Library3AM";
-	text-transform: uppercase;
- 	color: #fff;
+  border: 2px solid #92e1fc;
+  border-radius: 8px;
+  width: 30vw;
+  max-width: 100px;
+  height: 3em;
+  max-height: 50px;
+  background: #1d1c6c;
+  cursor: pointer;
+  font-size: .8em;
+  font-weight: bold;
+  font-family:"Library3AM";
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .modal-close:hover,
 .modal-close:focus {
-	cursor: pointer;
+  cursor: pointer;
   text-decoration: none;
   color: #81c7de;
 }

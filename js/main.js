@@ -10,16 +10,16 @@ import { Modal } from './components/Modal.js';
  */
 function setNewGameBtnVisibility(show) {
 
-	const DOM_GAME_NEW = document.getElementById('game-new');
+  const DOM_GAME_NEW = document.getElementById('game-new');
 
-	if (show) {
-		DOM_GAME_NEW.classList.add('show');
-	  DOM_GAME_NEW.classList.remove('hidden');
-	}
-	else {
-		DOM_GAME_NEW.classList.add('hidden');
-	  DOM_GAME_NEW.classList.remove('show');
-	}
+  if (show) {
+    DOM_GAME_NEW.classList.add('show');
+    DOM_GAME_NEW.classList.remove('hidden');
+  }
+  else {
+    DOM_GAME_NEW.classList.add('hidden');
+    DOM_GAME_NEW.classList.remove('show');
+  }
 }
 
 /**
@@ -29,16 +29,16 @@ function setNewGameBtnVisibility(show) {
  */
 function setRestartGameBtnVisibility(show) {
 
-	const DOM_GAME_RESTART = document.getElementById('game-restart');
+  const DOM_GAME_RESTART = document.getElementById('game-restart');
 
-	if (show) {
-		DOM_GAME_RESTART.classList.add('show');
-	  DOM_GAME_RESTART.classList.remove('hidden');
-	}
-	else {
-		DOM_GAME_RESTART.classList.add('hidden');
-	  DOM_GAME_RESTART.classList.remove('show');
-	}
+  if (show) {
+    DOM_GAME_RESTART.classList.add('show');
+    DOM_GAME_RESTART.classList.remove('hidden');
+  }
+  else {
+    DOM_GAME_RESTART.classList.add('hidden');
+    DOM_GAME_RESTART.classList.remove('show');
+  }
 }
 
 /**
@@ -47,14 +47,14 @@ function setRestartGameBtnVisibility(show) {
  * @param  {Boolean} gameStarted indicates whether there is an on-going game.
  */
 function setGameBtnsVisibility(gameStarted) {
-	if (gameStarted){
-		setNewGameBtnVisibility(false);
-		setRestartGameBtnVisibility(true);
-	}
-	else {
-		setNewGameBtnVisibility(true);
-		setRestartGameBtnVisibility(false);
-	}
+  if (gameStarted){
+    setNewGameBtnVisibility(false);
+    setRestartGameBtnVisibility(true);
+  }
+  else {
+    setNewGameBtnVisibility(true);
+    setRestartGameBtnVisibility(false);
+  }
 }
 
 /*
@@ -65,86 +65,86 @@ function setGameBtnsVisibility(gameStarted) {
 
 window.onload = function(){
 
-	let chemMatchGame = new Game();
-	window.chemMatchModal = new Modal();
+  let chemMatchGame = new Game();
+  window.chemMatchModal = new Modal();
 
-	setGameBtnsVisibility(chemMatchGame.started);
+  setGameBtnsVisibility(chemMatchGame.started);
 
-	/*
-	 *
-	 * Events
-	 *
-	 */
+  /*
+   *
+   * Events
+   *
+   */
 
-	/**
+  /**
    * @description Click event for buttons
-	 *
-	 */
-	document.addEventListener('click', function(event){
+   *
+   */
+  document.addEventListener('click', function(event){
 
-		function newGame(){
-			chemMatchGame.end();
-  		chemMatchGame.reset();
-			chemMatchGame.start();
-			setGameBtnsVisibility(chemMatchGame.started);
-		}
+    function newGame(){
+      chemMatchGame.end();
+      chemMatchGame.reset();
+      chemMatchGame.start();
+      setGameBtnsVisibility(chemMatchGame.started);
+    }
 
-		if (event.target.id==="modal-button-yes") {
+    if (event.target.id==="modal-button-yes") {
 
-			switch(window.chemMatchModal.Id) {
-		  case 'restartGame':
-		  	newGame();
-		    break;
-		  case 'endGame':
-		    break;
-			}
+      switch(window.chemMatchModal.Id) {
+      case 'restartGame':
+        newGame();
+        break;
+      case 'endGame':
+        break;
+      }
 
-			window.chemMatchModal.close();
-		}
+      window.chemMatchModal.close();
+    }
 
-		else if (event.target.id==="modal-button-no") {
-			window.chemMatchModal.close();
-		}
+    else if (event.target.id==="modal-button-no") {
+      window.chemMatchModal.close();
+    }
 
-		else if (event.target.id==="game-new") {
-	  	newGame();
-		}
-		else if (event.target.id==="game-restart") {
-			window.chemMatchModal.open("Do you really want to start a new game?", 'question', 'restartGame');
-	  }
-	  else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
-	  	window.chemMatchModal.close();
-	  }
-	});
+    else if (event.target.id==="game-new") {
+      newGame();
+    }
+    else if (event.target.id==="game-restart") {
+      window.chemMatchModal.open("Do you really want to start a new game?", 'question', 'restartGame');
+    }
+    else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
+      window.chemMatchModal.close();
+    }
+  });
 
-	/**
+  /**
    * @description Click event on deck for card flipping; and round and game management.
-	 *
-	 */
-	chemMatchGame.deck.DOMNode.addEventListener('click', async function(event) {
-		if (chemMatchGame.started === true &&
-			  chemMatchGame.roundComplete === false &&
-			  event.target.tagName==='LI'){
-			let chemMatchCard = chemMatchGame.deck.cards.find(card => 'card-'+card.id === event.target.id);
+   *
+   */
+  chemMatchGame.deck.DOMNode.addEventListener('click', async function(event) {
+    if (chemMatchGame.started === true &&
+        chemMatchGame.roundComplete === false &&
+        event.target.tagName==='LI'){
+      let chemMatchCard = chemMatchGame.deck.cards.find(card => 'card-'+card.id === event.target.id);
 
-			chemMatchCard.flip();
+      chemMatchCard.flip();
 
-			if (chemMatchGame.isRoundComplete()) {
-				chemMatchGame.roundComplete = true;
-				chemMatchGame.checkRound();
-				if (chemMatchGame.isGameSolved()) {
-					chemMatchGame.end();
-					let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
-		              ${functions.formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
-		              ${functions.formatSeconds(chemMatchGame.timer.seconds)} seconds(s).
-		              <p>${chemMatchGame.getPerformanceComment()}</p>`;
+      if (chemMatchGame.isRoundComplete()) {
+        chemMatchGame.roundComplete = true;
+        chemMatchGame.checkRound();
+        if (chemMatchGame.isGameSolved()) {
+          chemMatchGame.end();
+          let dialogText = `You solved the game in ${chemMatchGame.moveCounter.moves} moves,
+                  ${functions.formatMinutes(chemMatchGame.timer.seconds)} minute(s) and
+                  ${functions.formatSeconds(chemMatchGame.timer.seconds)} seconds(s).
+                  <p>${chemMatchGame.getPerformanceComment()}</p>`;
 
-					await functions.sleep(1000);
-					setGameBtnsVisibility(false);
-					window.chemMatchModal.open(dialogText, 'info', 'endGame');
-				}
-			}
-		}
-	});
+          await functions.sleep(1000);
+          setGameBtnsVisibility(false);
+          window.chemMatchModal.open(dialogText, 'info', 'endGame');
+        }
+      }
+    }
+  });
 
 };

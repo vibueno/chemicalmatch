@@ -1,4 +1,8 @@
 /**
+ * @module Card
+ */
+
+/**
  * @constructor
  * @description Creates a new Card object.
  *
@@ -12,11 +16,11 @@
  * @property {Object}  DOMNode        DOM object related to the card.
  */
 let Card = function(id, figure) {
-	this.id = id;
-	this.figure = figure;
-	this.solved = false;
-	this.inCurrentRound = false;
-	this.DOMNode = null;
+  this.id = id;
+  this.figure = figure;
+  this.solved = false;
+  this.inCurrentRound = false;
+  this.DOMNode = null;
 };
 
 /**
@@ -24,20 +28,20 @@ let Card = function(id, figure) {
  */
 Card.prototype.flip = function () {
 
-	if (this.solved===false) {
-		this.DOMNode.classList.add('flipped');
-		this.inCurrentRound = true;
-	}
+  if (this.solved===false) {
+    this.DOMNode.classList.add('flipped');
+    this.inCurrentRound = true;
+  }
 };
 
 /**
  * @description Flips the card back.
  */
 Card.prototype.flipBack = function () {
-	if (this.solved===false) {
-		this.DOMNode.classList.remove ('flipped');
-		this.inCurrentRound = false;
-	}
+  if (this.solved===false) {
+    this.DOMNode.classList.remove ('flipped');
+    this.inCurrentRound = false;
+  }
 };
 
 export { Card };
