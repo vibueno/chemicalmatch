@@ -66,7 +66,7 @@ function setGameBtnsVisibility(gameStarted) {
 window.onload = function(){
 
   let chemMatchGame = new Game();
-  window.chemMatchModal = new Modal();
+  let chemMatchModal = new Modal();
 
   setGameBtnsVisibility(chemMatchGame.started);
 
@@ -91,7 +91,7 @@ window.onload = function(){
 
     if (event.target.id==="modal-button-yes") {
 
-      switch(window.chemMatchModal.Id) {
+      switch(chemMatchModal.Id) {
       case 'restartGame':
         newGame();
         break;
@@ -99,21 +99,21 @@ window.onload = function(){
         break;
       }
 
-      window.chemMatchModal.close();
+      chemMatchModal.close();
     }
 
     else if (event.target.id==="modal-button-no") {
-      window.chemMatchModal.close();
+      chemMatchModal.close();
     }
 
     else if (event.target.id==="game-new") {
       newGame();
     }
     else if (event.target.id==="game-restart") {
-      window.chemMatchModal.open("Do you really want to start a new game?", 'question', 'restartGame');
+      chemMatchModal.open("Do you really want to start a new game?", 'question', 'restartGame');
     }
     else if (event.target.id ==="modal" || event.target.id ==="modal-close"){
-      window.chemMatchModal.close();
+      chemMatchModal.close();
     }
   });
 
@@ -141,7 +141,7 @@ window.onload = function(){
 
           await functions.sleep(1000);
           setGameBtnsVisibility(false);
-          window.chemMatchModal.open(dialogText, 'info', 'endGame');
+          chemMatchModal.open(dialogText, 'info', 'endGame');
         }
       }
     }
