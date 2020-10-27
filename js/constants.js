@@ -2,12 +2,12 @@
  * @module constants
  */
 
-/*The size of the array CARD_FIGURES does not really matter, as long as its length equals at least
-half of the deck size.
+/* The size of the array CARD_FIGURES does not really matter,
+as long as its length equals at least half of the deck size.
 
-If the number of card figures in CARD_FIGURES exceeds half of the deck size, the programm will choose
-the correct amount of figures randomly
-If there are not enough figures, the deck constructor will throw an error.*/
+If the number of card figures in CARD_FIGURES exceeds half of the deck size,
+the programm will choose the correct amount of figures randomly.
+If there are not enough figures, the deck constructor will throw an error. */
 
 const CARD_FIGURES = [
   'cat', 'bath', 'crow', 'anchor', 'cocktail',

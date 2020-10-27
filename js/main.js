@@ -122,7 +122,7 @@ window.onload = function(){
    *
    */
   chemMatchGame.deck.DOMNode.addEventListener('click', async function(event) {
-    if (chemMatchGame.started === true &&
+    if (chemMatchGame.started &&
         chemMatchGame.roundComplete === false &&
         event.target.tagName==='LI'){
       let chemMatchCard = chemMatchGame.deck.cards.find(card => 'card-'+card.id === event.target.id);
