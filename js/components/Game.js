@@ -131,7 +131,7 @@ Game.prototype.getPerformanceComment = function () {
   else if (this.moveCounter.moves<14) comments = PERF_COMMENTS.excellent;
   else if (this.moveCounter.moves<16) comments = PERF_COMMENTS.good;
   else if (this.moveCounter.moves<18) comments = PERF_COMMENTS.OK;
-  else if (this.moveCounter.moves<19) comments = PERF_COMMENTS.bad;
+  else if (this.moveCounter.moves<20) comments = PERF_COMMENTS.bad;
   else if (this.moveCounter.moves>=20) comments = PERF_COMMENTS.verybad;
 
   //Returning random comment
