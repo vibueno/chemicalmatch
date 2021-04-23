@@ -10,11 +10,10 @@
  *
  */
 
-@media screen and (min-width:300px) {
+@media screen and (min-width: 300px) {
   .game-new {
     font-size: 0.85em;
   }
-
   .deck .card.flipped {
     font-size: 10vmin;
   }
@@ -30,7 +29,7 @@
  *
  */
 
-@media screen and (min-width:500px) {
+@media screen and (min-width: 500px) {
   .game-restart {
     font-size: 6.5vmin;
   }
@@ -55,7 +54,6 @@
   .modal-close {
     font-size: 1em;
   }
-
 }
 
 /**
@@ -64,7 +62,7 @@
  *
  */
 
-@media screen and (min-width:600px) {
+@media screen and (min-width: 600px) {
   .score-panel {
     font-size: 4.5vmin;
   }
@@ -82,7 +80,7 @@
     font-size: 30px;
   }
 
-  footer{
+  footer {
     width: 70vw;
   }
 }
@@ -93,7 +91,7 @@
  *
  */
 
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
   h1 {
     font-size: 4.75em;
   }
@@ -111,7 +109,7 @@
   }
 
   .game-new {
-    font-size: 1.60em;
+    font-size: 1.6em;
   }
 
   .footer-credits {
@@ -125,7 +123,6 @@
   .modal-text {
     margin: 5% 3% 5% 3%;
   }
-
 }
 
 /**
@@ -134,7 +131,7 @@
  *
  */
 
-@media screen and (min-width:1000px) {
+@media screen and (min-width: 1000px) {
   h1 {
     font-size: 6em;
   }
