@@ -26,9 +26,8 @@ let Card = function(id, figure) {
 /**
  * @description Flips the card.
  */
-Card.prototype.flip = function () {
-
-  if (this.solved===false) {
+Card.prototype.flip = function() {
+  if (this.solved === false) {
     this.DOMNode.classList.add('flipped');
     this.inCurrentRound = true;
   }
@@ -37,9 +36,9 @@ Card.prototype.flip = function () {
 /**
  * @description Flips the card back.
  */
-Card.prototype.flipBack = function () {
-  if (this.solved===false) {
-    this.DOMNode.classList.remove ('flipped');
+Card.prototype.flipBack = function() {
+  if (this.solved === false) {
+    this.DOMNode.classList.remove('flipped');
     this.inCurrentRound = false;
   }
 };

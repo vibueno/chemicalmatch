@@ -26,13 +26,12 @@ let Modal = function() {
  *
  * @param {Boolean} show Indicates whether to show or hide the modal.
  */
-Modal.prototype.setVisibility = function (show) {
+Modal.prototype.setVisibility = function(show) {
   if (show) {
     this.DOMNode.classList.add('show');
     this.DOMNode.classList.remove('hidden');
     this.opened = true;
-  }
-  else {
+  } else {
     this.DOMNode.classList.add('hidden');
     this.DOMNode.classList.remove('show');
     this.opened = false;
@@ -44,7 +43,7 @@ Modal.prototype.setVisibility = function (show) {
  *
  * @param {String} text text to be shown on the modal.
  */
-Modal.prototype.setText = function (text) {
+Modal.prototype.setText = function(text) {
   this.DOMNodeText.innerHTML = text;
 };
 
@@ -55,11 +54,10 @@ Modal.prototype.setText = function (text) {
  * @param {String} modalType indicates the type of modal to be shown.
  * @param {Number} Id        identifies the exact message being shown.
  */
-Modal.prototype.open = function (text, modalType, Id) {
-
+Modal.prototype.open = function(text, modalType, Id) {
   this.Id = Id;
 
-  switch(modalType) {
+  switch (modalType) {
     case 'info':
       this.DOMNodeButtons.classList.add('modal-buttons-hidden');
       this.DOMNodeButtons.classList.remove('modal-buttons');
@@ -71,7 +69,7 @@ Modal.prototype.open = function (text, modalType, Id) {
   }
 
   this.setText(text);
-  this.opened=true;
+  this.opened = true;
   this.setVisibility(true);
 };
 
@@ -79,7 +77,7 @@ Modal.prototype.open = function (text, modalType, Id) {
  * @description Closes the modal.
  *
  */
-Modal.prototype.close = function () {
+Modal.prototype.close = function() {
   this.setVisibility(false);
 };
 

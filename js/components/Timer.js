@@ -57,7 +57,9 @@ Timer.prototype.reset = function() {
  * @param {Number} seconds amount of seconds the game has been played.
  */
 Timer.prototype.setDOMValue = function(seconds) {
-  this.DOMNodeTimer.innerHTML = `Time: ${functions.formatMinutes(seconds)}:${functions.formatSeconds(seconds)}`;
+  this.DOMNodeTimer.innerHTML = `Time: ${functions.formatMinutes(
+    seconds
+  )}:${functions.formatSeconds(seconds)}`;
 };
 
 export { Timer };

@@ -1,82 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chemical Match</title>
-    <meta name="description" content="Memory game developed with vanilla Javascript">
-    <meta name="author" content="Víctor Isabel-Bueno">
+    <meta
+      name="description"
+      content="Memory game developed with vanilla Javascript"
+    />
+    <meta name="author" content="Víctor Isabel-Bueno" />
 
-    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link
+      rel="stylesheet prefetch"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
 
     <script type="module" src="./js/main.js"></script>
 
-    <link rel="shortcut icon" href="favicon.ico">
-
+    <link rel="shortcut icon" href="favicon.ico" />
   </head>
   <body>
-
     <div class="main">
       <header>
         <h1>Chemical match</h1>
       </header>
 
       <div class="top-container">
-
         <div class="score-panel">
-          <span id = "moves"></span>
-          <span id ="timer"></span>
+          <span id="moves"></span>
+          <span id="timer"></span>
         </div>
         <div class="game-restart">
-          <i id ="game-restart" class="fa fa-redo"></i>
+          <i id="game-restart" class="fa fa-redo"></i>
         </div>
       </div>
       <div class="deck-container">
         <ul class="deck"></ul>
-        <button id = "game-new" class="game-new">New game</button>
+        <button id="game-new" class="game-new">New game</button>
       </div>
     </div>
 
     <footer>
-      <div class= "footer-credits">
+      <div class="footer-credits">
         <ul>
           <li>
             <em>Credits:</em>
-            <strong><span class="footer-credits-title">Design & Programming: </span></strong>
-            <a href="https://github.com/vibueno/chemicalmatch">Víctor Isabel-Bueno</a>;
+            <strong
+              ><span class="footer-credits-title"
+                >Design & Programming:
+              </span></strong
+            >
+            <a href="https://github.com/vibueno/chemicalmatch"
+              >Víctor Isabel-Bueno</a
+            >;
           </li>
           <li>
-            <strong><span class="footer-credits-title">Base HTML and CSS: </span></strong>
-            <a href="https://www.udacity.com/course/front-end-web-developer-nanodegree--nd0011">Udacity Front End Web Developer Nanodegree (Memory Game)</a>;
+            <strong
+              ><span class="footer-credits-title"
+                >Base HTML and CSS:
+              </span></strong
+            >
+            <a
+              href="https://www.udacity.com/course/front-end-web-developer-nanodegree--nd0011"
+              >Udacity Front End Web Developer Nanodegree (Memory Game)</a
+            >;
           </li>
           <li>
             <strong><span class="footer-credits-title">Fonts:</span></strong>
             <a href="https://fontawesome.com">Font Awesome</a>,
-            <a href="https://www.dafont.com/library-3-am.font">Library 3 am by Igor Kosinsky</a>,
+            <a href="https://www.dafont.com/library-3-am.font"
+              >Library 3 am by Igor Kosinsky</a
+            >,
           </li>
           <li>
             <strong><span class="footer-credits-title">Images:</span></strong>
-            <a href="https://www.shutterstock.com/image-illustration/aces-playing-cards-symbol-clubs-annd-1373126474">Favicon by Nimomose</a>,
-            <a href="https://www.freepik.com/free-vector/neon-stage-lights-background_5617157.htm">Background (freepik)</a>
+            <a
+              href="https://www.shutterstock.com/image-illustration/aces-playing-cards-symbol-clubs-annd-1373126474"
+              >Favicon by Nimomose</a
+            >,
+            <a
+              href="https://www.freepik.com/free-vector/neon-stage-lights-background_5617157.htm"
+              >Background (freepik)</a
+            >
           </li>
         </ul>
       </div>
-
     </footer>
 
     <!-- Modal: use for showing dialogs -->
     <div id="modal" class="modal hidden">
-      <div id = "modal-content" class="modal-content">
-        <span id = "modal-close" class="modal-close">&times;</span>
+      <div id="modal-content" class="modal-content">
+        <span id="modal-close" class="modal-close">&times;</span>
         <p id="modal-text" class="modal-text"></p>
-        <div id = "modal-buttons" class="modal-buttons">
-          <button id = "modal-button-yes" class="modal-button">yes</button>
-          <button id = "modal-button-no" class="modal-button">no</button>
+        <div id="modal-buttons" class="modal-buttons">
+          <button id="modal-button-yes" class="modal-button">yes</button>
+          <button id="modal-button-no" class="modal-button">no</button>
         </div>
       </div>
     </div>
-
   </body>
 </html>

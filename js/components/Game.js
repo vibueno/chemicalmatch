@@ -34,14 +34,14 @@ Game.prototype.reset = function() {
   this.deck = new Deck(DECK_SIZE);
   this.moveCounter.reset();
   this.timer.reset();
-  this.started=false;
+  this.started = false;
 };
 
 /**
  * @description Starts the game.
  */
 Game.prototype.start = function() {
-  this.started=true;
+  this.started = true;
   this.timer.start();
 };
 
@@ -49,7 +49,7 @@ Game.prototype.start = function() {
  * @description Ends the game.
  */
 Game.prototype.end = function() {
-  this.started=false;
+  this.started = false;
   this.timer.stop();
 };
 
@@ -58,24 +58,27 @@ Game.prototype.end = function() {
  *
  * @returns: {Boolean}
  */
-Game.prototype.isRoundComplete = function () {
-  let cardsinCurrentRound = this.deck.cards.filter(card => card.inCurrentRound === true);
-  return (cardsinCurrentRound.length===2? true: false);
+Game.prototype.isRoundComplete = function() {
+  let cardsinCurrentRound = this.deck.cards.filter(
+    card => card.inCurrentRound === true
+  );
+  return cardsinCurrentRound.length === 2 ? true : false;
 };
 
 /**
  * @description Checks the current round.
  */
-Game.prototype.checkRound = async function () {
-  let currentRoundCards = this.deck.cards.filter(card => card.inCurrentRound === true);
+Game.prototype.checkRound = async function() {
+  let currentRoundCards = this.deck.cards.filter(
+    card => card.inCurrentRound === true
+  );
 
   this.moveCounter.increment();
 
   //If there is a match
   if (currentRoundCards[0].figure === currentRoundCards[1].figure) {
-
-    currentRoundCards.forEach(function(card){
-      card.solved=true;
+    currentRoundCards.forEach(function(card) {
+      card.solved = true;
       card.DOMNode.classList.add('match-trans');
     });
 
@@ -85,17 +88,14 @@ Game.prototype.checkRound = async function () {
       card.DOMNode.classList.remove('match-trans');
       card.DOMNode.classList.add('match');
     });
-
-  }
-  else
-  {
+  } else {
     await functions.sleep(700);
     currentRoundCards[0].flipBack();
     currentRoundCards[1].flipBack();
   }
 
-  currentRoundCards[0].inCurrentRound=false;
-  currentRoundCards[1].inCurrentRound=false;
+  currentRoundCards[0].inCurrentRound = false;
+  currentRoundCards[1].inCurrentRound = false;
 
   this.roundComplete = false;
 };
@@ -105,14 +105,12 @@ Game.prototype.checkRound = async function () {
  *
  * @returns: {Boolean}
  */
-Game.prototype.isGameSolved = function () {
+Game.prototype.isGameSolved = function() {
   let notSolvedCards = this.deck.cards.filter(card => card.solved === false);
 
-  if (notSolvedCards.length === 0){
+  if (notSolvedCards.length === 0) {
     return true;
-  }
-  else
-  {
+  } else {
     return false;
   }
 };
@@ -122,17 +120,16 @@ Game.prototype.isGameSolved = function () {
  *
  * @returns: {String} Performance comment.
  */
-Game.prototype.getPerformanceComment = function () {
-
+Game.prototype.getPerformanceComment = function() {
   let comments = '';
 
   if (this.timer.seconds > 60) comments = PERF_COMMENTS.slow;
-  else if (this.moveCounter.moves<12) comments = PERF_COMMENTS.astonishing;
-  else if (this.moveCounter.moves<14) comments = PERF_COMMENTS.excellent;
-  else if (this.moveCounter.moves<16) comments = PERF_COMMENTS.good;
-  else if (this.moveCounter.moves<18) comments = PERF_COMMENTS.OK;
-  else if (this.moveCounter.moves<20) comments = PERF_COMMENTS.bad;
-  else if (this.moveCounter.moves>=20) comments = PERF_COMMENTS.verybad;
+  else if (this.moveCounter.moves < 12) comments = PERF_COMMENTS.astonishing;
+  else if (this.moveCounter.moves < 14) comments = PERF_COMMENTS.excellent;
+  else if (this.moveCounter.moves < 16) comments = PERF_COMMENTS.good;
+  else if (this.moveCounter.moves < 18) comments = PERF_COMMENTS.OK;
+  else if (this.moveCounter.moves < 20) comments = PERF_COMMENTS.bad;
+  else if (this.moveCounter.moves >= 20) comments = PERF_COMMENTS.verybad;
 
   //Returning random comment
   return comments[Math.floor(Math.random() * comments.length)];
